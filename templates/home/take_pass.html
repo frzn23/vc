@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% block title %}
+Hanzo Costumer Login Page
+{% endblock title %}
+
+{% block body %}
+
+
+<br><br>
+
+<div class="only-laptop">
+<hr style="border:1px solid black">
+</div>
+
+
+{% for message in messages %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:black;color:#ffca18;margin-bottom:-1%;">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Request</h5>
+        <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="background-color:black;color:#ffca18;">
+      <img src="{{message.tags}}" style='width:100%' class="rounded mx-auto d-block" alt="...">
+      <b>
+        {{message}}
+      </b>
+      </div>
+      
+      <div class="modal-footer" style="background-color:black;color:#ffca18;">
+
+        <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close">Sign In</button>
+      
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+
+
+
+<div class="login-form">
+    <form action="/take_pass" method="post">{% csrf_token %}
+        <h2 class="text-center">Log in</h2> 
+        <br>
+      {% if no_user %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>Wrong Password!</strong> The Password You Entered Is Incorrect. Please Try Again.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endif %}
+            
+        <div class="form-group">
+            <input type="tel" class="form-control" placeholder="Username" name="phone" value="{{phone}}" required="required">
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+        </div>
+        <br>      
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Log in</button>
+        </div>
+        <br>      
+        <div class="clearfix">
+            <a href="#" class="float-center" style="color:black;">Forgot Password?</a>
+        </div>        
+    </form>
+    <p class="text-center"><a href="#">Create an Account</a></p>
+</div>
+
+
+
+
+{% endblock body %}
+
+{% block style %}
+.login-form {
+    width: 30%;
+    margin: 50px auto;
+  	font-size: 15px;
+}
+@media(max-width:900px){
+    .login-form{
+        width:80%;
+    }
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}
+{% endblock style %}
+
+
+{% block js %}
+
+
+<script>
+  function show_Modal(){
+    $('#myModal').modal('show');
+  }
+</script>
+
+
+{% if messages %}
+<script>
+show_Modal();
+</script>
+{% endif %}
+
+
+{% endblock js %}

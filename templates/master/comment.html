@@ -1,0 +1,52 @@
+{% extends 'basics.html' %}
+{% block body %}
+
+{% if user.is_authenticated %}
+
+<center> 
+<h1>
+<br><br>
+{% for i in order %}
+
+You are currently adding comment for order id - <b> {{i.order_id}} </b>
+<br>
+Phone - <b>{{i.phone}}</b>
+<br>
+Address - <b>{{i.address}}</b>
+
+</h1>
+</center>
+
+
+<div class="feed-container" style="width:80%;margin:auto;">
+<br><br>
+<form action="" method="POST"> {% csrf_token %}
+  <div class="form-group">
+    <label for="feedback-text">Your Comment</label>
+    <textarea class="form-control" id="feedback-text" style="color:black" name="comment" rows="7">
+    {{i.comment}}
+    </textarea>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-warning btn-lg btn-block">
+  Add Comment
+  </button>
+
+</form>
+
+</div>
+{% endfor %}
+
+{% else %}
+
+<script>
+
+window.location.href="/master";
+
+</script>
+
+
+
+{% endif %}
+
+{% endblock body %}

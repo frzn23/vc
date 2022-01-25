@@ -1,0 +1,203 @@
+{% extends 'base.html' %}
+{% block title %}Place Your Order Here!{% endblock title %}
+
+{% block body %}
+
+
+<br><br>
+
+<div class="only-laptop">
+<hr style="border:1px solid black">
+</div>
+
+
+{% for message in messages %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:black;color:#ffca18;margin-bottom:-1%;">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Request</h5>
+        <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="background-color:black;color:#ffca18;">
+      <img src="{{message.tags}}" style='width:100%' class="rounded mx-auto d-block" alt="...">
+      <b>
+        {{message}}
+      </b>
+      </div>
+      
+      <div class="modal-footer" style="background-color:black;color:#ffca18;">
+      <a href="/track">
+        <button type="button" class="btn btn-outline-warning">Track</button>
+      </a>
+
+      <a href="/">
+        <button type="button" class="btn btn-warning">Home</button>
+      </a>
+      
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+
+
+    <div class="container">
+     
+      <div class="py-5 text-center">
+     
+        <h2>Checkout :
+        </h2>
+
+        <p class="lead">
+
+            
+        {% if id != 4 %}
+        <h4>
+          We Assure You To Deliver Your Clothes Back To You Within 20 Hours
+         </h4>
+         {% else %}
+         <h4>
+          We Assure You To Deliver Your Clothes Back To You Within 2 Hours
+         </h4>
+         {% endif %}
+         <br>
+         
+         <center>
+            <h2>
+               Fill The Given Details To Place Your Order :
+             </h2>
+        </center>
+            <div class="h-1 w-100 bg-yellow-500 rounded"></div>
+
+         </p>
+     
+      </div>
+
+    {% for i in service %}
+      <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-dark">
+            <b> Your Order: </b>
+            </span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h5 class="my-0">{{i.s_name}}:</h5>
+              </div>
+              <span class="text-dark"><b> {{i.s_price}}</b></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-dark">
+                <h5 class="my-0">
+                <b>
+                (NOTE: Total Weight Will Be Measured At Your Doorstep)
+                </b>
+                </h5>
+
+              {% if id != 4 %}
+                <small>Final Price will be <b> {{i.s_price}} X Weight </b> </small>
+              {% else %}
+                <small>Final Price will be <b> {{i.s_price}}</b> </small>
+              {% endif %}
+              </div>
+            </li>
+          </ul>
+
+
+        </div>
+
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">Enter Your Phone No :</h4>
+          
+
+          <div class="login-form">
+            <form action="/place-order-phone/{{id}}" method="post"> {% csrf_token %}
+                {% comment %} <h2 class="text-center">Log in</h2>  {% endcomment %}
+                <br>      
+                <div class="form-group">
+                    <input type="tel" style="font-size:1.3em;" name="phone" class="form-control" placeholder="Phone Number" minlength="10" maxlength="10" required="required">
+                </div>
+                <br>      
+    
+                <div class="form-group">
+                    <button type="submit" id="c-h" class="btn btn-warning btn-block">NEXT</button>
+                </div>
+                <br>   
+            </form>
+        </div>
+        
+        </div>
+      </div>
+
+
+      {% endfor %}
+
+
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+{% block js %}
+
+<script>
+  function show_Modal(){
+    $('#myModal').modal('show');
+  }
+</script>
+
+{% if messages %}
+<script>
+show_Modal();
+</script>
+
+{% endif %}
+
+
+
+{% endblock js %}
+
+
+
+{% endblock body %}
+
+{% block style %}
+
+.form-control{
+  color:black;
+}
+
+@media(min-width:770px){
+.login-form{
+    width:70%
+}
+}
+
+@media(max-width:770px){
+.login-form{
+    width:100%
+}
+}
+
+.form-control {
+    line-height: 2.5em; // 2em is (2 * default line height)
+}
+#c-h{
+    line-height:2em
+}
+{% endblock style %}

@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+{% block title %}Place Your Order Here!{% endblock title %}
+
+{% block body %}
+
+
+
+<br><br>
+
+<div class="only-laptop">
+<hr style="border:1px solid black">
+</div>
+
+
+
+<div class="login-form">
+
+  {% for message in messages %}
+
+  <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background-color:black;color:#ffca18;margin-bottom:-1%;">
+          <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Request</h5>
+          <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="background-color:black;color:#ffca18;">
+        <img src="{{message.tags}}" style='width:100%' class="rounded mx-auto d-block" alt="...">
+        <b>
+          {{message}}
+        </b>
+        </div>
+        
+        <div class="modal-footer" style="background-color:black;color:#ffca18;">
+        <a href="/track">
+          <button type="button" class="btn btn-outline-warning">Track</button>
+        </a>
+  
+          <button type="button" class="btn btn-warning" data-dismiss="modal" aria-label="Close">Sign Up To Avail Benefits</button>
+        
+        
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  {% endfor %}
+  
+      
+    <form action="/signup" method="post"> {% csrf_token %}
+
+        <h2 class="text-center">Sign Up</h2> 
+        <br>
+          {% if error_user %}                  
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              <strong>User Exists. </strong>The Phone number you ordered with already has a Hanzo account
+              <a href="/signin">Login Here</a>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+          {% endif %}
+
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" minlength="2" placeholder="Name" required="required">
+        </div>
+        <br>
+        <div class="form-group">
+            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
+        </div>
+        <br>      
+        <div class="form-group">
+            <input type="password" class="form-control" name="passw" minlength='5' placeholder="Password" required="required">
+        </div>
+        {% if phone|length > 0 %}
+            <input type="hidden" name="phone" value="{{phone}}">
+        {% else %}
+            <br>
+            <div class="form-group">
+              <input type="phone" minlength="10" maxlength="10" class="form-control" name="phone" placeholder="Phone" required="required">
+            </div>
+        {% endif %}
+        <br>
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Sign Up</button>
+        </div>
+        <br>
+      
+    </form>
+    <p class="text-center"><a href="#">Have An Account? Login</a></p>
+</div>
+
+
+{% endblock body %}
+
+
+{% block style %}
+.login-form {
+    width: 30%;
+    margin: 50px auto;
+  	font-size: 15px;
+}
+@media(max-width:900px){
+    .login-form{
+        width:80%;
+    }
+}
+.login-form form {
+    margin-bottom: 15px;
+    background: #f7f7f7;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+    padding: 30px;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}
+{% endblock style %}
+
+
+{% block js %}
+
+
+<script>
+  function show_Modal(){
+    $('#myModal').modal('show');
+  }
+</script>
+
+
+{% if messages %}
+<script>
+show_Modal();
+</script>
+{% endif %}
+
+
+{% endblock js %}

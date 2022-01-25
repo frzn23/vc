@@ -1,0 +1,172 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+Choose A Service To Place An Order - Hanzo
+
+{% endblock title %}
+{% block body %}
+
+
+
+<br>
+
+<div class="only-laptop">
+<br>
+<hr style="border:1px solid black">
+</div>
+
+<br><br>
+
+{% comment %} <div class="row mb-20" style="width:90%;margin:auto;">
+
+  {% for i in service %}
+  <div class="col-sm-4">
+    <div class="card text-white bg-dark" style="width: 18rem;">
+    <img class="card-img-top" src="static/img/{{i.s_img}}" alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">{{i.s_name}}</h5>
+        <p class="card-text dark">{{i.s_desc}}</p>
+         
+        <a href="place-order?id=1">
+            
+        <button type="button" class="btn btn-warning">Order</button>
+        
+        <a href="place-order/{{i.s_no}}">
+        <button type="button" class="btn btn-outline-light">Order</button>
+        </a>
+
+        </a>
+
+    </div>
+    </div>
+  </div>
+  {% endfor %}
+
+
+</div>  {% endcomment %}
+
+
+{% block style %}
+
+<style>
+.p-4{
+  padding: 0.4rem !important;
+}
+
+.prof{
+  border-bottom: 2px solid #eec911;
+}
+.card-link{
+  color:white;
+}
+.card-link:hover{
+  color:white;
+}
+.card-container{
+  margin-top:-5%;
+}
+</style>
+
+{% endblock style %}
+
+
+<div class="card-container">
+
+
+  <section class="text-gray-400 body-font">
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    <h2 class="prof sm:text-3xl text-2xl text-gray-900 font-medium title-font mb-2 md:w-2/5">
+    {% comment %} Hanzo Professionals Are Trained To Save Your Time And Money. We will Pick Your Clothes Within 20 Minutes Of Placing Order. {% endcomment %}
+    Hanzo has made a lifetime commitment to wash your clothes with luxury experience and best quality. 
+    <br>
+    Give Us 20 hours to show what we are.
+    </h2>
+    <div class="md:w-3/5 md:pl-6">
+      <p class="leading-relaxed text-base" style="color:black;font-size:1.1rem">
+      <b>
+      Our Laundry Executives take care of each thread of your clothes. We wash your clothes with premium detergents,
+      in commercial machines. At last your clothes are carefully folded and fragranced to give the purest smell to you.
+      With all hygiene maintained, your clothes are delivered back to you within 20 Hours.
+      <br>
+      <h4 style="color:black;">
+      Hanzo is made for you. Order Now !
+      </h4>
+       </b>
+      </p>
+      <a href="/about">
+        {% comment %} <button class="inline-flex text-white bg-yellow-500 border-0 py-1 px-4 focus:outline-none hover:bg-yellow-600 rounded">Learn More</button> {% endcomment %}
+        <button class="btn btn-warning btn-lg btn-block bg-yellow-500">Learn More</button>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+    
+    <div class="container px-5 py-24 mx-auto">
+      <div class="flex flex-wrap -m-4">
+
+
+
+
+        {% for i in service %}
+
+        
+
+        <div class="p-4 lg:w-1/3">
+        
+          
+          {% if i.s_no != 3 %}
+
+          <a href="place-order/{{i.s_no}}" id="book-link" style="text-decoration:none;" class="card-link">
+          
+          {% else %}
+          
+          <a href="dry-clean" id="book-link" style="text-decoration:none;" class="card-link">
+
+          {% endif %}
+
+          <div id="pricing" class="h-full bg-gray-900 px-8 pt-10 pb-24 rounded-lg overflow-hidden text-center relative" style="background-color:black;">
+        
+          <img class="pb-4 w-full object-cover object-center" src="static/img/{{i.s_img}}" alt="blog">
+        
+            <h2 class="tracking-widest text-xs title-font font-medium text-white-900 mb-1">CATEGORY</h2>
+            <h1 class="title-font sm:text-2xl text-xl font-medium text-white mb-3">{{i.s_name}}</h1>
+            <p class="leading-relaxed mb-3">{{i.s_desc}}</p>
+          
+              <button type="button" class="btn btn-outline-warning">Order <svg class="w-4 h-4 ml-2" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="M12 5l7 7-7 7"></path></svg>
+              
+            </button>
+            
+          
+
+            <p class="leading-relaxed mt-3">{{i.s_dc}}</p>
+            <p class="leading-relaxed mt-3">{{i.s_ac}}</p>
+            <p class="leading-relaxed mt-3" style="font-size:1.5rem;">{{i.s_price}}</p>
+
+
+
+          </div>
+        </div>
+          </a>
+
+        
+        {% endfor %}
+
+
+      
+
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+
+
+<br><br><br><br><br>
+
+{% endblock body %}

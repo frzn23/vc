@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block title %}Please Enter Your Feedback For Us{% endblock title %}
+{% block style %}
+
+.feed-container{
+    width:80%;
+    margin:auto;
+}
+.form-group{
+    margin-top:-4%;
+}
+{% endblock style %}
+{% block body %}
+
+
+<br><br>
+
+
+<div class="only-laptop">
+<hr style="border:1px solid black">
+</div>
+
+<br><br>
+
+<section class="text-gray-600 body-font">
+  <div class="container px-5 py-24 mx-auto flex flex-wrap">
+    <h2 class="sm:text-3xl text-2xl text-gray-900 font-medium title-font mb-2">
+    As a rising startup, Us at Hanzo, Would love to hear your honest opinion about us and our service, so please leave
+    us a note.
+    </h2>
+            <div class="h-1 w-100 bg-yellow-500 mt-4 rounded"></div>
+
+  </div>
+</section>
+
+<div class="feed-container">
+
+<form action="" method="POST"> {% csrf_token %}
+  <div class="form-group">
+    <label for="feedback-text">Your Feedback</label>
+    <textarea class="form-control" id="feedback-text" style="color:black" name="feedback" rows="7"></textarea>
+  </div>
+  <br>
+  <button type="submit" class="btn btn-warning btn-lg btn-block">
+  Send Feedback
+  </button>
+
+</form>
+
+</div>
+<br><br><br><br>
+
+{% endblock body %}

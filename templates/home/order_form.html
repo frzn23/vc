@@ -1,0 +1,262 @@
+{% extends 'base.html' %}
+{% block title %}Place Your Order Here!{% endblock title %}
+
+{% block body %}
+
+
+<br><br>
+
+<div class="only-laptop">
+<hr style="border:1px solid black">
+</div>
+
+
+{% for message in messages %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:black;color:#ffca18;margin-bottom:-1%;">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Request</h5>
+        <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="background-color:black;color:#ffca18;">
+      <img src="{{message.tags}}" style='width:100%' class="rounded mx-auto d-block" alt="...">
+      <b>
+        {{message}}
+      </b>
+      </div>
+      
+      <div class="modal-footer" style="background-color:black;color:#ffca18;">
+      <a href="/track">
+        <button type="button" class="btn btn-outline-warning">Track</button>
+      </a>
+
+      <a href="/">
+        <button type="button" class="btn btn-warning">Home</button>
+      </a>
+      
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+
+
+    <div class="container">
+     
+      <div class="py-5 text-center">
+     
+        <h2>Checkout :
+        </h2>
+
+        <p class="lead">
+        <br>
+         <h3>YOU CAN CANCEL ORDER ANYTIME BEFORE PICKUP OR DURING WEIGHING</h3>
+         
+
+         <br>
+         
+         <center>
+         <h2>
+            Fill The Given Details To Place Your Order :
+          </h2>
+          </center>
+            
+        {% if id != 4 %}
+        <h4>
+          We Assure You To Deliver Your Clothes Back To You Within 20 Hours
+         </h4>
+         {% else %}
+         <h4>
+          We Assure You To Deliver Your Clothes Back To You Within 2 Hours
+         </h4>
+         {% endif %}
+
+         {% comment %} <h3>YOU CAN CANCEL ORDER ANYTIME BEFORE PICKUP OR DURING WEIGHING</h3> {% endcomment %}
+            <div class="h-1 w-100 bg-yellow-500 rounded"></div>
+
+         </p>
+     
+      </div>
+
+    {% for i in service %}
+      <div class="row">
+        <div class="col-md-4 order-md-2 mb-4">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-dark">
+            <b> Your Order: </b>
+            </span>
+          </h4>
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div>
+                <h5 class="my-0">{{i.s_name}}:</h5>
+              </div>
+              <span class="text-dark"><b> {{i.s_price}}</b></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-dark">
+                <h5 class="my-0">
+                <b>
+                (NOTE: Total Weight Will Be Measured At Your Doorstep)
+                </b>
+                </h5>
+
+              {% if id != 4 %}
+                <small>Final Price will be <b> {{i.s_price}} X Weight </b> </small>
+              {% else %}
+                <small>Final Price will be <b> {{i.s_price}}</b> </small>
+              {% endif %}
+              </div>
+            </li>
+            <a href="/place-order-phone/{{id}}" class="ml-1">(Go Back)</a>
+
+          </ul>
+
+
+        </div>
+
+        <div class="col-md-8 order-md-1">
+          <h4 class="mb-3">Confirm Your Order Here :</h4>
+          
+          <form action="/place-order/{{id}}" id = 'orderForm' method="POST">  {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">Full name</label>
+                <input type="text" name="name" id="name" class="form-control" placeholder="" required>
+
+
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Phone No.</label>
+                {% if phone_get %}
+                <input type="tel" name="phone" value="{{phone_get}}" id="phone" maxlength="10" minlength="10" class="form-control" placeholder="" required disabled>
+                {% else %}
+                <input type="tel" name="phone" value="{{phone_get}}" id="phone" maxlength="10" minlength="10" class="form-control" placeholder="" required>
+                {% endif %}
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label for="firstName">Building/House No.</label>
+                <input type="text" name="flat" id="flat" class="form-control" placeholder="" value="" required>
+
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="lastName">Floor</label>
+                <input type="text" name="floor" id="floor" class="form-control" placeholder="" value="" required>
+              </div>
+            </div>
+
+
+            <div class="mb-3">
+              <label for="email">Further Address <span class="text-muted"></span></label>
+                <select name="location" class="form-control" id="exampleFormControlSelect1" required>
+                    <option>Shaheen Bagh</option>
+                    <option>Abul Fazal</option>
+                </select>
+            </div>
+
+
+            <div class="mb-3">
+              <label>Landmark <span class="text-muted">(Optional)</span></label>
+              <input type="text" name="landmark" class="form-control" id="lmark" placeholder="Near Tayyab Masjid Etc..">
+            </div>
+            
+            {% if id == 1 %}
+            <div class="mb-3">
+              <input type="checkbox" class="checkbox" name="iron_needed" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1">Some Clothes Need Ironing? </label>
+               (Tick This)
+            </div>
+            {% endif %}          
+
+            <hr class="mb-4">
+            <button class="btn btn-warning btn-lg btn-block" type="submit">Continue to checkout</button>
+            <br><br>
+
+          </form>
+        </div>
+      </div>
+
+
+      {% endfor %}
+
+
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+
+{% block js %}
+
+<script>
+  function show_Modal(){
+    $('#myModal').modal('show');
+  }
+</script>
+
+{% if messages %}
+<script>
+show_Modal();
+</script>
+
+{% endif %}
+
+<script>
+
+if(localStorage.getItem("name")!=null){
+    document.getElementById('name').value = localStorage.getItem("name");
+    if(document.getElementById('phone').value==""){
+      document.getElementById('phone').value = localStorage.getItem("phone");
+    }
+
+    document.getElementById('flat').value = localStorage.getItem("flat");
+    document.getElementById('floor').value = localStorage.getItem("floor");
+    document.getElementById('lmark').value = localStorage.getItem("lmark");
+}
+
+$('#orderForm').submit(function(event) {
+
+  name = document.getElementById('name').value;
+  phone = document.getElementById('phone').value;
+  flat = document.getElementById('flat').value;
+  floor = document.getElementById('floor').value;
+  lmark = document.getElementById('lmark').value;
+  event.returnValue = false;
+
+if(localStorage.getItem("name")==null){
+    localStorage.setItem("name", name);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("flat", flat);
+    localStorage.setItem("floor", floor);
+    localStorage.setItem("lmark", lmark);
+}
+
+  event.returnValue = true;
+});
+
+</script>
+
+
+{% endblock js %}
+
+
+
+{% endblock body %}
+
+{% block style %}
+
+.form-control{
+  color:black;
+}
+
+{% endblock style %}

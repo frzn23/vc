@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% block title %}Cancel Your Order Here{% endblock title %}
+
+{% block body %}
+<style>
+
+
+.detail{
+  text-decoration: none;
+  color: #eec911;
+  border-bottom: 2px solid #eec911;
+}
+.detail:hover{
+  text-decoration:none;
+  color:#eec911;
+}
+.list-group{
+
+  padding:10;
+
+}
+#side-form{
+    width:80%;
+}
+
+</style>
+
+
+<br>
+
+<div class="only-laptop">
+<br>
+<hr style="border:1px solid black">
+</div>
+
+
+<section class="text-gray-600 body-font">
+<br><br>
+
+<center>
+<h1 class="text-black">
+You can cancel your order here: 
+</h1>
+</center>
+
+<br><br>
+
+  <div class="container px-4 py-4 mx-auto flex flex-wrap items-center" id="range-con">
+    <div class="container justify-center items-center lg:w-2/6 md:w-1/2 bg-opacity-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0" style="background-color:black;width:40%;" id="side-form">
+      <h2 class="text-white text-lg font-medium title-font mb-5">Cancel Here</h2>
+      
+      {% if msg %}
+
+      <br>
+      <br>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{msg}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+      {% endif %}
+      <form action="" method="POST"> {%csrf_token%}
+
+      <div class="relative mb-4">
+        <label for="track-id" class="leading-7 text-sm text-gray-100">Track Id</label>
+        <input type="number" id="track-id" name="id" class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-yellow-900 rounded border border-gray-600 focus:border-yellow-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+      <div class="relative mb-4">
+        <label for="phone" class="leading-7 text-sm text-gray-100">Phone</label>
+        <input type="number" id="phone" name="phone" class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-yellow-900 rounded border border-gray-600 focus:border-yellow-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+      <button type="submit" class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">CANCEL</button>
+    </div>
+  </div>
+</form>
+
+</section>
+
+
+
+
+  <br>  
+</div>
+
+
+{% endblock body %}

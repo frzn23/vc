@@ -1,0 +1,41 @@
+{% extends 'basics.html' %}
+{% block body %}
+
+{% if success %}
+
+<script>
+alert("Status Successfully Updated");
+Location.reload();
+</script>
+
+{% endif %}
+
+<form action="" method="POST"> {% csrf_token %}
+  <div class="form-group" style="width:50%;margin:auto;margin-top:10%;">
+    <label for="change_status">
+    
+    <h3>
+    <center>
+    CHANGE STATUS HERE
+    </center>
+
+    </h3>
+   
+    <br>
+
+    <h4>LAST STATUS: <b>{{last_status}}</b></h4>
+
+    </label>
+    <select class="form-control" id="change_status" name="status_update">
+      <option>Order Picked</option>
+      <option>In Laundry</option>
+      <option>Delivered</option>
+    </select>
+
+      <button type="submit" class="btn btn-primary mt-4">Change</button>
+
+  </div>
+</form>
+
+
+{% endblock body %}

@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+{% block title %}Track Your Order Here{% endblock title %}
+
+{% block body %}
+<style>
+
+
+.detail{
+  text-decoration: none;
+  color: #eec911;
+  border-bottom: 2px solid #eec911;
+}
+.detail:hover{
+  text-decoration:none;
+  color:#eec911;
+}
+.list-group{
+
+  padding:10;
+
+}
+
+
+</style>
+
+
+
+<section class="text-gray-600 body-font">
+<br><br>
+  <div class="container px-4 py-4 mx-auto flex flex-wrap items-center" id="range-con">
+    <div class="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
+    <br>
+     <!-- <span class="inline-block h-1 rounded bg-yellow-500 mt-8 mb-6" id="track-range"></span>
+
+      <br>
+
+
+      <div class="d-flex flex-row">
+        <div class="p-2">Order Placed</div>
+        <div class="p-2">In Process</div>
+        <div class="p-2">Delivered</div>
+      </div> -->
+
+
+{% if mylist %}
+
+<h1>Your Order :</h1>
+
+<br>
+<ul class="list-group">
+
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Status
+    <span class="badge badge-warning badge-pill" style="font-size:0.9rem;">Time</span>     
+  </li>
+
+  {% for status,time in mylist %}
+
+  <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size:1.2rem;">
+      <b>  
+        {{status}}     
+      </b>
+    <span class="badge badge-warning" style="font-size:0.8rem;">{{time}}</span>
+       
+  </li>
+
+  {% endfor %}
+
+</ul>
+
+{% else %}
+
+      <div class="status" style="border:2px solid black">
+      <h1 class="title-font font-medium text-3xl text-gray-900" style="padding:4%">
+      Enter Your <a class="detail" href=""> Track ID and Phone No. </a>, <br>Your Order Status Will Appear Here.
+      </h1>
+      
+      </div>
+
+{% endif %}
+
+    </div>    
+                                                                                                              {% comment %} rgb(25, 41, 54); {% endcomment %}
+    <div class="lg:w-2/6 md:w-1/2 bg-opacity-50 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0" style="background-color:black">
+      <h2 class="text-white text-lg font-medium title-font mb-5">Track Here</h2>
+      
+      {% if msg %}
+
+      <br>
+      <br>
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          <strong>{{msg}}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+
+      {% endif %}
+      <form action="" method="POST"> {%csrf_token%}
+
+      <div class="relative mb-4">
+        <label for="track-id" class="leading-7 text-sm text-gray-100">Track Id</label>
+        <input type="number" id="track-id" name="id" class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-yellow-900 rounded border border-gray-600 focus:border-yellow-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+      <div class="relative mb-4">
+        <label for="phone" class="leading-7 text-sm text-gray-100">Phone</label>
+        <input type="number" id="phone" name="phone" class="w-full bg-gray-600 bg-opacity-20 focus:bg-transparent focus:ring-2 focus:ring-yellow-900 rounded border border-gray-600 focus:border-yellow-500 text-base outline-none text-gray-100 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      </div>
+      <button type="submit" class="text-white bg-yellow-500 border-0 py-2 px-8 focus:outline-none hover:bg-yellow-600 rounded text-lg">Track</button>
+    </div>
+  </div>
+</form>
+
+</section>
+
+
+
+
+<!-- {% block js %}
+
+<script>
+
+
+var i = 0;
+
+function myLoop() {
+  setTimeout(function() {   
+    document.getElementById("track-range").style.width = i+"%";
+    i++;                    
+    if (i < 61) {           
+      myLoop();              
+    }
+  }, 10)
+}
+
+myLoop();
+
+</script>
+
+
+{% endblock js %} -->
+  <br>  
+</div>
+
+
+{% endblock body %}

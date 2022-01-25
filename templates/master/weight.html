@@ -1,0 +1,44 @@
+{% extends 'basics.html' %}
+{% block body %}
+
+{% if user.is_authenticated %}
+
+<center> 
+<h1>
+<br><br>
+Add Weight Of an order to generate an automatic billing reciept
+</h1>
+</center>
+
+
+<div class="feed-container" style="width:80%;margin:auto;">
+<br><br>
+<form action="" method="POST"> {% csrf_token %}
+  <div class="form-group">
+    <label for="exampleFormControlInput1">WEIGHT</label>
+    
+    <input type="text" class="form-control" name="weight" id="exampleFormControlInput1">
+ 
+  </div>
+  <br>
+  <button type="submit" class="btn btn-warning btn-lg btn-block">
+  Add Weight
+  </button>
+
+</form>
+
+</div>
+
+{% else %}
+
+<script>
+
+window.location.href="/master";
+
+</script>
+
+
+
+{% endif %}
+
+{% endblock body %}

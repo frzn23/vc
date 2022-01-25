@@ -1,0 +1,172 @@
+{% extends 'basics.html' %}
+{% block title %}Manage Orders {% endblock title %}
+{% block body %}
+
+{% if user.is_authenticated %}
+
+
+
+
+<section class="text-gray-600 body-font">
+
+<center>
+<br><br>
+<h1>
+Filter Order:
+</h1>    
+      <div class="p-2 w-1/2">
+        <div class="relative">
+        <form action="" method="post"> {% csrf_token %}
+          <input type="number" id="name" name="id" placeholder="Enter Order Id" class="w-50 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+            <br>
+            <br>
+            <button type="submit" class="flex mx-auto text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">SEARCH</button>
+        </form>
+        </div>
+      </div>
+</center>
+
+    <center>
+    <h1 style="margin-top:10%"> <b>ACTIVE ORDERS </b></h1>
+    </center>
+    
+
+  <div class="container px-5 py-24 mx-auto">
+
+
+
+{% for i in order %}
+    <div class="flex items-center lg:w-3/5 mx-auto border-b pb-10 mb-10 border-gray-200 sm:flex-row flex-col">
+      <div class="sm:w-32 sm:h-32 h-20 w-20 sm:mr-10 inline-flex items-center justify-center rounded-full bg-indigo-100 text-indigo-500 flex-shrink-0">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="sm:w-16 sm:h-16 w-10 h-10" viewBox="0 0 24 24">
+          <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
+        </svg>
+      </div>
+      <div class="flex-grow sm:text-left text-center mt-6 sm:mt-0">
+        <h1>
+        Order Id: {{i.order_id}}
+        </h1>
+
+        <h1>
+        NAME: {{i.name}}
+        </h1>
+        
+        <h1>
+        Phone: {{i.phone}}
+        </h1>
+        <h2>Service: {{i.order_name}}</h2>
+        <b>
+        <h5>
+        <br>
+        <b>
+        Address:
+        </b>
+        {{i.address}}
+        </h5>
+        </b>
+        <br>
+
+        <b>
+        <h3>
+        Status : {{i.status}}
+        </h3>
+        </b>
+
+{% if i.order_name == "Wash & Iron" or i.order_name == "Wash & Fold" %}
+        <b>
+          <h3>
+          Weight(KG) : {{i.weight}}
+          </h3>
+        </b>
+
+{% endif %}
+        
+
+        <h3>
+          Laundry Payment : Rs. {{i.laundry_price}} <br>
+          Costumer : Rs. {{i.costumer_price}}
+        </h3>
+
+        <a class="mt-3 text-yellow-500 inline-flex items-center" href="manage/{{i.order_id}}">EDIT STATUS
+          <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <br>
+        <a class="mt-3 text-yellow-500 inline-flex items-center" href="comment/{{i.order_id}}">
+        Add/View Comment
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7"></path>
+          </svg>
+        </a>
+        <br>
+        {% if i.order_name == "Wash & Iron" or i.order_name == "Wash & Fold" %}
+        <a class="mt-3 text-yellow-500 inline-flex items-center" href="w/{{i.order_id}}">
+        Add Weight
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-4 h-4 ml-2" viewBox="0 0 24 24">
+           <path d="M5 12h14M12 5l7 7-7 7"></path>
+         </svg>
+        </a>
+        {% endif %}
+
+      </div>
+    </div>
+  {% endfor %}
+
+  </div>
+</section>
+
+
+
+{% for message in messages %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Opinion</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <img src="{{message.tags}}" style='width:50%' class="rounded mx-auto d-block" alt="...">
+        {{message}}
+      </b>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+<script>
+  function show_Modal(){
+    $('#myModal').modal('show');
+  }
+</script>
+
+{% if messages %}
+<script>
+show_Modal();
+</script>
+
+{% endif %}
+
+
+
+{% else %}
+
+
+<script>
+
+window.location.href="/master";
+
+</script>
+
+
+
+{% endif %}
+
+{% endblock body %}
