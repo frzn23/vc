@@ -91,7 +91,7 @@ def manage_int(request,int):
             to_client =f"+91{orders.phone}"
     
             account_sid = "AC956c0481a1259cf06686130dce2679df"
-            auth_token  = "5baa3ef4e90f599f19b26c985c0a0621"
+            auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
             
             client = Client(account_sid, auth_token)
             message = client.messages.create(
@@ -108,7 +108,7 @@ def manage_int(request,int):
             to_client =f"+91{orders.phone}"
 
             account_sid = "AC956c0481a1259cf06686130dce2679df"
-            auth_token  = "5baa3ef4e90f599f19b26c985c0a0621"
+            auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
             
             client = Client(account_sid, auth_token)
             message = client.messages.create(
@@ -171,7 +171,7 @@ def wait(request,id):
         to_client =f"+91{orders.phone}"
     
         account_sid = "AC956c0481a1259cf06686130dce2679df"
-        auth_token  = "5baa3ef4e90f599f19b26c985c0a0621"
+        auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
         
         client = Client(account_sid, auth_token)
         message = client.messages.create(
