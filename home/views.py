@@ -119,7 +119,7 @@ def dc(request):
                 to_us = ['+919874368148','+917678117021','+918750850454']
                 
                 # account_sid = "AC956c0481a1259cf06686130dce2679df"
-                # auth_token  = "5baa3ef4e90f599f19b26c985c0a0621"
+                # auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
                 
                 # client = Client(account_sid, auth_token)
                 # message = client.messages.create(
@@ -214,7 +214,7 @@ def order_info(request, id):
                 to_us = ['+919874368148','+917678117021','+918750850454']
 
                 # account_sid = "AC956c0481a1259cf06686130dce2679df"
-                # auth_token  = "5baa3ef4e90f599f19b26c985c0a0621"
+                # auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
                 
                 # client = Client(account_sid, auth_token)
                 # message = client.messages.create(
