@@ -20,12 +20,6 @@ def index(request):
     return render(request, 'master/index.html')
 
 
-
-
-
-
-
-
 def handle(request):
     if request.method=="POST":
         user_name = request.POST['user']
