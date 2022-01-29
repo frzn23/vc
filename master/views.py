@@ -17,7 +17,6 @@ from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 
 def index(request):
-    
     return render(request, 'master/index.html')
 
 def handle(request):
