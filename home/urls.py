@@ -15,7 +15,6 @@ urlpatterns = [
     path('cancel-order', views.cancel),
     path('dc', views.dc),
     path('place-order-phone/<int:id>', views.take_phone),
-    path('new_pass', views.new_pass),
     path('take_pass', views.take_pass),
     path('signup', views.signup),
 

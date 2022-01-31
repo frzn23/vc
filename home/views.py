@@ -176,6 +176,9 @@ def order_info(request, id):
     if request.method=="POST":
         name = request.POST.get('name', '')
         phone = request.POST.get('phone','')
+        phone = request.GET['p']
+        if phone=="":
+            phone = request.POST.get('phone','')
         flat = request.POST.get('flat', '')
         floor = request.POST.get('floor', '')
         location = request.POST.get('location', '')
@@ -233,7 +236,9 @@ def order_info(request, id):
                 #     requests.get(url_link)
 
                 messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
-                return redirect('signup')
+
+                params = {'name':name,'phone':phone}
+                return render(request,'home/order_pass.html',params)
 
 
         except Exception as e:
@@ -246,7 +251,6 @@ def order_info(request, id):
             phone_get = request.GET['p']
         except:
             phone_get = False
-        print(phone_get)
         service = Services.objects.filter(s_no=id)
         if phone_get==False:
             params = {'id':id, 'service':service,'otp_sent':True}
@@ -280,24 +284,54 @@ def take_phone(request, id):
 
 
 
-def new_pass(request):
-    return render(request, 'home/order_pass.html')
-
-
 def take_pass(request):
     if request.method=="POST":
-        user_name = request.POST['phone']
+        phone = request.POST['phone']
         password = request.POST['password']
-        user = authenticate(username=user_name, password=password)
+        user = authenticate(username = phone, password = password)
+
         if user is not None:
             login(request, user)
-            return redirect('/place-auth/1')
+            # messages.success(request, "Logged In Successfully")
+            return redirect("/")
         else:
-            return render(request, "home/take_pass.html", {'phone':user_name, "no_user":True})
+            return render(request, 'home/take_pass.html',{'no_user':True})
+
     return render(request, 'home/take_pass.html')
 
 def signup(request):
-    pass
+    if request.method=="POST":
+        name = request.POST['name']
+        phone = request.POST.get('phone','')
+        email = request.POST['email']
+        passw = request.POST['passw']
+        remember = request.POST.get('remember', 'off')
+        # user = authenticate(username=phone)
+        
+        try:
+            user_exists = User.objects.get(username=phone)
+            return render(request,'home/order_pass.html',{'user_exist':True})
+        except User.DoesNotExist:
+            myuser = User.objects.create_user(phone, email, passw)
+            myuser.first_name= name
+            myuser.save()
+            params = {'user_created':True}
+            user = authenticate(username = phone, password = passw)
+
+            if user is not None:
+                login(request, user)
+                return redirect('/')
+            else:
+                messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
+                return redirect("/signup")
+            # return render(request,'home/order_pass.html',params)
+        
+
+
+    return render(request, 'home/order_pass.html')
+
+
+
 
 def track(request):
 

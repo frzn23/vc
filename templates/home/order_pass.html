@@ -53,9 +53,9 @@
 
         <h2 class="text-center">Sign Up</h2> 
         <br>
-          {% if error_user %}                  
+          {% if user_exist %}                  
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              <strong>User Exists. </strong>The Phone number you ordered with already has a Hanzo account
+              <strong>User Exists. </strong>The Phone number you entered already has a Hanzo account
               <a href="/signin">Login Here</a>
               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -63,25 +63,40 @@
             </div>
           {% endif %}
 
-        <div class="form-group">
-            <input type="text" class="form-control" name="name" minlength="2" placeholder="Name" required="required">
-        </div>
-        <br>
-        <div class="form-group">
-            <input type="email" class="form-control" name="email" placeholder="Email" required="required">
-        </div>
-        <br>      
-        <div class="form-group">
-            <input type="password" class="form-control" name="passw" minlength='5' placeholder="Password" required="required">
-        </div>
-        {% if phone|length > 0 %}
-            <input type="hidden" name="phone" value="{{phone}}">
-        {% else %}
-            <br>
-            <div class="form-group">
-              <input type="phone" minlength="10" maxlength="10" class="form-control" name="phone" placeholder="Phone" required="required">
-            </div>
+          {% if user_created %}                  
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong>User Created. </strong>Your Hanzo Account Is Ready To Use
+            <a href="/signin">Login Here</a>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
         {% endif %}
+
+        <div class="form-group">
+          <label>Name:</label>
+            <input type="text" value="{{name}}" class="form-control" name="name" minlength="2"  required="required">
+        </div>
+        <div class="form-group">
+              <label>Phone:</label>
+              <input type="number" value="{{phone}}" minlength="10" maxlength="10" class="form-control" name="phone"  required="required">
+            </div>
+        <div class="form-group">
+          <label>Email:</label>
+            <input type="email" class="form-control" name="email" required="required">
+        </div>
+        <div class="form-group">
+
+        <label for="pass_field">Password:</label>
+        <input type="password" minlength="5" name="passw" maxlength="18" class="form-control" name="email" required="required">
+        
+      </div>
+
+
+        <div class="form-check">
+          <input type="checkbox" name="remember" class="form-check-input" id="exampleCheck1">
+          <label class="form-check-label" for="exampleCheck1">Remember Me</label>
+        </div>
         <br>
         <div class="form-group">
             <button type="submit" class="btn btn-warning btn-block">Sign Up</button>
@@ -109,9 +124,13 @@
 }
 .login-form form {
     margin-bottom: 15px;
-    background: #f7f7f7;
+    background: #111;
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
     padding: 30px;
+    color:#fff;
+}
+.login-form input{
+  background:#111;
 }
 .login-form h2 {
     margin: 0 0 15px;
@@ -123,6 +142,9 @@
 .btn {        
     font-size: 15px;
     font-weight: bold;
+}
+#pass_adjust{
+  width:90%;
 }
 {% endblock style %}
 

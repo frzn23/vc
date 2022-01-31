@@ -125,7 +125,9 @@
         <div class="col-md-8 order-md-1">
           <h4 class="mb-3">Confirm Your Order Here :</h4>
           
-          <form action="/place-order/{{id}}" id = 'orderForm' method="POST">  {% csrf_token %}
+
+          <form action="/place-order/{{id}}?p={{phone_get}}" id = 'orderForm' method="POST">  {% csrf_token %}
+
             <div class="row">
               <div class="col-md-6 mb-3">
                 <label for="firstName">Full name</label>
@@ -138,7 +140,7 @@
                 {% if phone_get %}
                 <input type="tel" name="phone" value="{{phone_get}}" id="phone" maxlength="10" minlength="10" class="form-control" placeholder="" required disabled>
                 {% else %}
-                <input type="tel" name="phone" value="{{phone_get}}" id="phone" maxlength="10" minlength="10" class="form-control" placeholder="" required>
+                <input type="tel" name="phone" id="phone" maxlength="10" minlength="10" class="form-control" placeholder="" required>
                 {% endif %}
               </div>
             </div>
