@@ -17,5 +17,6 @@ urlpatterns = [
     path('place-order-phone/<int:id>', views.take_phone),
     path('take_pass', views.take_pass),
     path('signup', views.signup),
+    path('panel', views.panel),
 
 ]

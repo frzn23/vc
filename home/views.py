@@ -238,7 +238,7 @@ def order_info(request, id):
                 messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
 
                 params = {'name':name,'phone':phone}
-                return render(request,'home/order_pass.html',params)
+                return render(request,'home/login/order_pass.html',params)
 
 
         except Exception as e:
@@ -266,7 +266,7 @@ def take_phone(request, id):
         phone_no = request.POST['phone']
         try:
             user_exists = User.objects.get(username=phone_no)
-            return render(request, 'home/take_pass.html', {'auth':True, 'phone':phone_no})
+            return render(request, 'home/login/take_pass.html', {'auth':True, 'phone':phone_no})
 
         except User.DoesNotExist:
             service = Services.objects.filter(s_no=id)
@@ -278,7 +278,7 @@ def take_phone(request, id):
     if id==1 or id==2 or id==3:
         service = Services.objects.filter(s_no=id)
         params = {'id':id, 'service':service,'otp_sent':True}
-        return render(request, "home/phone.html", params)
+        return render(request, "home/login/phone.html", params)
     else:
         return redirect('/')
 
@@ -295,9 +295,9 @@ def take_pass(request):
             # messages.success(request, "Logged In Successfully")
             return redirect("/")
         else:
-            return render(request, 'home/take_pass.html',{'no_user':True})
+            return render(request, 'home/login/take_pass.html',{'no_user':True,'phone':phone})
 
-    return render(request, 'home/take_pass.html')
+    return render(request, 'home/login/take_pass.html')
 
 def signup(request):
     if request.method=="POST":
@@ -306,11 +306,10 @@ def signup(request):
         email = request.POST['email']
         passw = request.POST['passw']
         remember = request.POST.get('remember', 'off')
-        # user = authenticate(username=phone)
         
         try:
             user_exists = User.objects.get(username=phone)
-            return render(request,'home/order_pass.html',{'user_exist':True})
+            return render(request,'home/login/order_pass.html',{'user_exist':True})
         except User.DoesNotExist:
             myuser = User.objects.create_user(phone, email, passw)
             myuser.first_name= name
@@ -324,12 +323,15 @@ def signup(request):
             else:
                 messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
                 return redirect("/signup")
-            # return render(request,'home/order_pass.html',params)
+            # return render(request,'home/login/order_pass.html',params)
         
 
 
-    return render(request, 'home/order_pass.html')
+    return render(request, 'home/login/order_pass.html')
 
+
+def panel(request):
+    return render(request, 'home/panel.html')
 
 
 
