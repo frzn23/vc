@@ -331,7 +331,7 @@ def signup(request):
 
 
 def panel(request):
-    return render(request, 'home/panel.html')
+    return render(request, 'home/login/panel.html')
 
 
 
