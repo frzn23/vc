@@ -318,13 +318,13 @@ def take_pass(request):
         if user is not None:
             login(request, user)
             # messages.success(request, "Logged In Successfully")
-            return redirect("/")
+            return redirect("/panel")
         else:
             return render(request, 'home/login/take_pass.html',{'no_user':True,'phone':phone})
 
     return render(request, 'home/login/take_pass.html')
 
-def signup(request):
+# def signup(request):
     if request.method=="POST":
         name = request.POST['name']
         phone = request.POST.get('phone','')
@@ -361,14 +361,16 @@ def panel(request):
         name = request.user.first_name
         orders = Order.objects.filter(phone=phone)
         service = Services.objects.filter(pr="true")
-        params = {'phone':phone, 'name':name, 'orders':orders,'service':service}
+        address = orders[0].address
+        params = {'phone':phone, 'name':name, 'orders':orders,'service':service, 'address':address}
         return render(request, 'home/login/panel.html',params)
 
     else:
         return redirect('/take_pass')
     
     
-
+def order_auth(request,id):
+    pass
 
 
 def track(request):
