@@ -262,6 +262,10 @@ def order_info(request, id):
 
 
 def take_phone(request, id):
+    
+    if request.user.is_authenticated:
+        return redirect('/panel')
+
     if request.method == "POST":
         phone_no = request.POST['phone']
         try:
@@ -273,6 +277,7 @@ def take_phone(request, id):
             params = {'id':id, 'service':service,'otp_sent':True}
             page_change = f'/place-order/{id}?p={phone_no}'
             # return render(request, page_change, params)
+
             return redirect(page_change)
 
     if id==1 or id==2 or id==3:
@@ -285,6 +290,8 @@ def take_phone(request, id):
 
 
 def take_pass(request):
+    if request.user.is_authenticated:
+        return redirect('/panel')
     if request.method=="POST":
         phone = request.POST['phone']
         password = request.POST['password']
@@ -331,7 +338,18 @@ def signup(request):
 
 
 def panel(request):
-    return render(request, 'home/login/panel.html')
+    if request.user.is_authenticated:
+        phone = request.user.username
+        name = request.user.first_name
+        orders = Order.objects.filter(phone=phone)
+        service = Services.objects.filter(pr="true")
+        params = {'phone':phone, 'name':name, 'orders':orders,'service':service}
+        return render(request, 'home/login/panel.html',params)
+
+    else:
+        return redirect('/take_pass')
+    
+    
 
 
 
