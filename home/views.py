@@ -135,8 +135,8 @@ def dc(request):
                 #         from_="+17067603908",
                 #         body=msg_us)
 
-                for i in range(3):
-                    requests.get(url_link)
+                # for i in range(3):
+                #     requests.get(url_link)
                         
                 messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
 
@@ -186,6 +186,8 @@ def order_info(request, id):
         iron_need = request.POST.get('iron_needed','off')
         service = Services.objects.filter(s_no=id)[0]
         address = f"{flat}, {floor} Floor, {location}, Near {landmark}"
+        passw = request.POST.get('passw','')
+        email = request.POST.get('email','')
 
         ist = pytz.timezone('Asia/Kolkata')
         now = datetime.now(ist)
@@ -203,6 +205,7 @@ def order_info(request, id):
                 
                 # params = {'name':name, 'phone':phone, 'service':service, 'address':address, 'now':now}
                 order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="")
+
                 order.save()
                 
                 if iron_need=="on":
@@ -235,10 +238,25 @@ def order_info(request, id):
                 # for i in range(3):
                 #     requests.get(url_link)
 
-                messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+                # messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+        
+                myuser = User.objects.create_user(phone, email, passw)
+                myuser.first_name= name
+                myuser.save()
+                params = {'user_created':True}
+                user = authenticate(username = phone, password = passw)
 
-                params = {'name':name,'phone':phone}
-                return render(request,'home/login/order_pass.html',params)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+                    return redirect("/panel")
+                    
+                else:
+                    messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
+                    return redirect("/signup")
+
+                # params = {'name':name,'phone':phone}
+                # return render(request,'home/login/order_pass.html',params)
 
 
         except Exception as e:

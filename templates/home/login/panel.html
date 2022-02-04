@@ -13,6 +13,42 @@
 
 <br><br><br><br>
 
+{% for message in messages %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:black;color:#ffca18;margin-bottom:-1%;">
+        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Request</h5>
+        <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body" style="background-color:black;color:#ffca18;">
+      <img src="{{message.tags}}" style='width:100%' class="rounded mx-auto d-block" alt="...">
+      <b>
+        {{message}}
+      </b>
+      </div>
+      
+      <div class="modal-footer" style="background-color:black;color:#ffca18;">
+      <a href="/track">
+        <button type="button" class="btn btn-outline-warning">Track</button>
+      </a>
+
+      <a href="/">
+        <button type="button" class="btn btn-warning">Home</button>
+      </a>
+      
+      
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+
 
         
 <div class="container">
@@ -182,4 +218,25 @@
 
 
 
-{% endblock %}
+
+{% block js %}
+
+<script>
+  function show_Modal(){
+    $('#myModal').modal('show');
+  }
+</script>
+
+{% if messages %}
+<script>
+show_Modal();
+</script>
+
+{% endif %}
+
+<script>
+
+{% endblock js %}
+
+
+{% endblock body %}
