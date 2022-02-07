@@ -19,5 +19,7 @@ urlpatterns = [
     # path('signup', views.signup),
     path('order-auth/<int:id>', views.order_auth),
     path('panel', views.panel),
+    path('my-orders', views.my_order),
+    path('take-review', views.take_review),
 
 ]

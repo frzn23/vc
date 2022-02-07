@@ -68,6 +68,7 @@ TEMPLATES = [
             ],
                 'autoescape': False
 
+
         },
     },
 ]

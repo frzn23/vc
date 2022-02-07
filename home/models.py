@@ -38,9 +38,11 @@ class Order(models.Model):
     weight = models.CharField(max_length=1000, default="Not Specified")
     laundry_price = models.CharField(max_length=1000, default="Not defined Yet")
     costumer_price = models.CharField(max_length=1000, default="Not defined Yet")
+    laundry_review = models.CharField(max_length=1000, default="No review")
+    delivery_review = models.CharField(max_length=1000, default="No review")
 
     def __str__(self):
-        return f"ID : {self.order_id}, Order : {self.name}, Phone : {self.phone}, Address:{self.address}"
+        return f"ID : {self.order_id}, Order : {self.name}, Phone : {self.phone}, Order:{self.order_name}"
 
 class deleted_orders(models.Model):
     order_id = models.AutoField(primary_key=True)

@@ -179,13 +179,14 @@ def order_info(request, id):
         phone = request.GET['p']
         if phone=="":
             phone = request.POST.get('phone','')
+        
         flat = request.POST.get('flat', '')
         floor = request.POST.get('floor', '')
         location = request.POST.get('location', '')
         landmark = request.POST.get('landmark','')
+        address = f"{flat}, {floor} Floor, {location}, Near {landmark}"
         iron_need = request.POST.get('iron_needed','off')
         service = Services.objects.filter(s_no=id)[0]
-        address = f"{flat}, {floor} Floor, {location}, Near {landmark}"
         passw = request.POST.get('passw','')
         email = request.POST.get('email','')
 
@@ -239,7 +240,7 @@ def order_info(request, id):
                 #     requests.get(url_link)
 
                 # messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
-        
+
                 myuser = User.objects.create_user(phone, email, passw)
                 myuser.first_name= name
                 myuser.save()
@@ -254,6 +255,7 @@ def order_info(request, id):
                 else:
                     messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
                     return redirect("/signup")
+
 
                 # params = {'name':name,'phone':phone}
                 # return render(request,'home/login/order_pass.html',params)
@@ -277,6 +279,63 @@ def order_info(request, id):
         return render(request, "home/order_form.html", params)
     else:
         return redirect('/')
+    
+def order_auth(request,id):
+    if request.method=="POST":
+        
+        if id==1 or id==2:
+            name=request.POST.get('name','')
+            phone=request.POST.get('phone')
+            service = Services.objects.filter(s_no=id)[0]
+            address = request.POST.get('address','')
+            iron_need = request.POST.get('iron_needed','off')
+            service = Services.objects.filter(s_no=id)[0]
+            ist = pytz.timezone('Asia/Kolkata')
+            now = datetime.now(ist)
+            timing = now.strftime("%d/%m/%Y %I:%M %p")
+
+            try:
+                order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="")
+                order.save()
+                
+                if iron_need=="on":
+                    msg_for_client = f"Thank You {name} for placing the order of {service} and ironing of some clothes. Our executives will reach you within 20 minutes. Track your order at hanzo.co.in/track using Track ID - {order.order_id}"     
+                    msg_us = f"Order Recieved of {service}+Ironing some clothes. Name- {name}, Phone-{phone}, address - {address}, order id - {order.order_id}"
+                else:
+                    msg_for_client = f"Thank You {name} for placing the order of {service}. Our executives will reach you within 20 minutes. Track your order at hanzo.co.in/track using Track ID - {order.order_id}"     
+                    msg_us = f"Order Recieved of {service} Name- {name}, Phone-{phone}, address - {address}, order id - {order.order_id}"
+                                    
+                msg_us = msg_us.replace("&","And")
+                to_client =f"+91{phone}"
+
+                # account_sid = "AC956c0481a1259cf06686130dce2679df"
+                # auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
+                
+                # client = Client(account_sid, auth_token)
+                # message = client.messages.create(
+                #     to=to_client, 
+                #     from_="+17067603908",
+                #     body=msg_for_client)
+                    
+                url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
+                # for i in to_us:
+                #     message = client.messages.create(
+                #         to=i, 
+                #         from_="+17067603908",
+                #         body=msg_us)
+
+                # for i in range(3):
+                #     requests.get(url_link)
+
+                messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+                return redirect('/panel')
+            except Exception as e:
+                messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
+                return redirect('/panel')
+        else:
+            return redirect('/panel')
+    else:
+        return redirect('/panel')
 
 
 def take_phone(request, id):
@@ -354,23 +413,78 @@ def take_pass(request):
 
     return render(request, 'home/login/order_pass.html')
 
+def my_order(request):
+    if request.user.is_authenticated:
+        phone = request.user.username
+        name = request.user.first_name
+        orders = Order.objects.filter(phone=phone)
+        params = {'phone':phone, 'name':name, 'orders':orders}
+        return render(request, 'home/login/my_order.html',params)
+
+    else:
+        return redirect('/take_pass')
 
 def panel(request):
     if request.user.is_authenticated:
         phone = request.user.username
         name = request.user.first_name
-        orders = Order.objects.filter(phone=phone)
+        orders = Order.objects.filter(phone=phone).order_by('-order_id')
         service = Services.objects.filter(pr="true")
+        total_order = len(orders)
+        if total_order>=5:
+            loop_range=5
+        elif total_order<5:
+            loop_range=total_order
         address = orders[0].address
-        params = {'phone':phone, 'name':name, 'orders':orders,'service':service, 'address':address}
+        last_order=orders[0].order_name
+
+        last_review=orders[0].laundry_review
+        if last_review == "No review":
+            if "Delivered" in orders[0].status:
+                review = True
+            else:
+                review = False
+        else:
+            review=False
+
+        stat = orders[0].status
+        stat = stat.split(',')
+        time = orders[0].timing
+        time = time.split(',')
+        mylist=zip(stat,time)
+        params = {'phone':phone, 'name':name, 'orders':orders,'service':service, 'address':address,'loop_range':loop_range,'last_order':last_order,'review':review,'order':order,'mylist':mylist}
         return render(request, 'home/login/panel.html',params)
 
     else:
         return redirect('/take_pass')
     
-    
-def order_auth(request,id):
-    pass
+def take_review(request):
+    if request.user.is_authenticated:
+
+        if request.method=="POST":
+            delivery = int(request.POST.get("speed","4"))
+            quality = int(request.POST.get("quality","4"))
+            order_id = request.POST.get('review_id','')
+            order = Order.objects.get(order_id=order_id)
+            order.laundry_review = int(quality)
+            order.delivery_review = int(delivery)
+            order.save()
+            if delivery<4 and quality<4:
+                messages.success(request,"We are sorry for your bad experience with Washing Quality & Delivery Speed. We will be in touch soon & we will compensate for your discomfort. Next time you order from Hanzo, you will recieve the best service.")
+
+            elif delivery<4:
+                messages.success(request,"We are sorry for your bad experience with delivery speed. We are already looking into the issue. Next time you order from Hanzo, you will recieve the best service.")
+            elif quality<4:
+                messages.success(request,"We are sorry for your bad experience with Washing Quality. We will be in touch soon & we will compensate for your discomfort. Next time you order from Hanzo, you will recieve the best service.")
+            elif delivery>=4 and quality>=4:
+                messages.success(request,"We are thankful for your good review, Please keep using Hanzo and we will be providing you with such luxury service at lowest cost.")
+            return redirect('/panel')
+
+
+        else:
+            return redirect('/panel')
+    else:
+        return redirect('/take_pass')
 
 
 def track(request):

@@ -1,7 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block title %}Welcome {{name}}. Your Personal Hanzo Page!{% endblock title %}
-
 {% block body %}
 
 
@@ -25,11 +24,11 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <form>
+                  <form action="/order-auth/1" method="POST"> {% csrf_token %}
                   <div class="modal-body">
                     <div class="form-group">
                       <label>Address</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="2">{{address}}</textarea>
+                      <textarea class="form-control" name="address" id="exampleFormControlTextarea1" rows="2" minlength="8" required>{{address}}</textarea>
                     </div>
 
 
@@ -64,11 +63,11 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <form>
+                  <form action="/order-auth/2" method="POST"> {% csrf_token %}
                   <div class="modal-body">
                     <div class="form-group">
                       <label>Address</label>
-                      <textarea class="form-control" id="exampleFormControlTextarea1" rows="2">{{address}}</textarea>
+                      <textarea class="form-control" id="exampleFormControlTextarea1" name="address" rows="2" minlength="8" required>{{address}}</textarea>
                     </div>
 
                     <input type="hidden" value={{name}} name="name">
@@ -98,7 +97,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color:black;color:#ffca18;margin-bottom:-1%;">
-        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Request</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Review</h5>
         <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -141,49 +140,9 @@
     <br><br>
     <div class="row">
 
-        <div class="col-md-4 order-md-2 mb-4">
-          <h4 class="d-flex justify-content-between align-items-center mb-3">
-            <span class="text-dark">
-            <b> Choose Something To Order: </b>
-            </span>
-          </h4>
-          <ul class="list-group mb-3">
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h5 class="my-2">Wash & Fold</h5>
-              </div>
-                <a href="#"></a>
-                <button class="btn btn-dark">Book</button>
-            </li>
 
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h5 class="my-2">Wash & Iron</h5>
-              </div>
-                <a href="#"></a>
-                <button class="btn btn-dark">Book</button>
-            </li>
 
-            <li class="list-group-item d-flex justify-content-between lh-condensed">
-              <div>
-                <h5 class="my-2">Dry Clean</h5>
-              </div>
-                <a href="#"></a>
-                <button class="btn btn-dark">Book</button>
-            </li>
-             <li class="list-group-item d-flex justify-content-between bg-light">
-              <div class="text-dark">
-                <h5 class="my-0">
-                <b>
-                (NOTE: Total Weight Will Be Measured At Your Doorstep)
-                </b>
-                </h5>
-              </div> 
-            </li> 
-          </ul>
-        </div> 
-
-        <div class="col-md-8 order-md-1">
+      <div class="col-md-8 order-md-1">
             <h4 class="mb-3">
             <b>Your Previous Orders :</b> 
             </h4>
@@ -197,21 +156,131 @@
                 </li>
               
               
-              {% for order in orders %}
+              {% for order in orders|slice:loop_range %}
               <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size:1.2rem;">
                   <b>
-                    {{order.order_name}}
+                    {{forloop.counter}}) {{order.order_name}}
                   </b>
                 <button class="btn btn-warning">More Info</button>
               </li>
               {% endfor %}
-              
+              <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size:1.2rem;">
+                <b>
+                  -
+                </b>
+              <a href="/my-orders">
+              <button class="btn btn-lg btn-warning">All Orders</button>
+              </a>
+              </li>
+            
               </ul>
               
 
             </div>  
         </div>
+        {% if review %}
         
+
+        <div class="col-md-4 order-md-2 mb-4">
+          <br><br>
+          <ul class="list-group mb-3">
+            
+            <li class="list-group-item d-flex justify-content-between bg-dark">
+              <div class="text-light">
+                <h5 class="my-0">
+                <b>
+                How Was Your Experience With Your Last Order:
+                </b>
+                </h5>
+              </div> 
+            </li> 
+
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="text-align:center;">
+                <b>
+                <h3 class="my-2">{{last_order}}:</h3>
+                </b>
+              </div>
+            </li>
+            
+            <form action="/take-review" method="POST">{% csrf_token %}
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="text-align:center;">
+                <b>
+                <h5 class="my-2">Delivery Speed</h5>
+                </b>
+                <div style="width:100%;">
+                  <input type="range" class="form-range" name="speed" min="0" step="1" value="4" max="5" id="customRange2">
+                </div>
+
+              </div>
+            </li>
+
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="text-align:center;">
+                <b>
+                <h5 class="my-2">Clothes Quality</h5>
+                </b>
+                  <input type="range" name="quality" class="form-range" min="0" step="1" value="4" max="5" id="customRange2">
+                  <input type="hidden" value="{{orders.0.order_id}}" name="review_id">
+              </div>
+            </li>
+
+
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="width:100%;">
+                <button class="btn btn-outline-warning btn-lg btn-block text-dark" type="submit">Submit</button>
+              </div>
+            </li>
+
+          </form>
+
+          </ul>
+        </div>
+
+        {% else %}
+
+        
+        <div class="col-md-4 order-md-2 mb-4">
+          <br><br>
+          <ul class="list-group mb-3">
+            
+            <li class="list-group-item d-flex justify-content-between bg-dark">
+              <div class="text-light">
+                <h5 class="my-0">
+                <b>
+                Your Active Order :
+                </b>
+                </h5>
+              </div> 
+            </li> 
+
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="text-align:center;">
+                <b>
+                <h3 class="my-2">{{last_order}}:</h3>
+                </b>
+              </div>
+            </li>
+
+            {% for status,time in mylist %}
+
+            <li class="list-group-item d-flex justify-content-between align-items-center" style="font-size:1.2rem;">
+                <b>  
+                  {{status}}     
+                </b>
+              <span class="badge badge-warning" style="font-size:0.8rem;">{{time}}</span>
+                 
+            </li>
+          
+            {% endfor %}
+
+          </ul>
+        </div>
+
+        {% endif %}
+
+
     </div>
 
 
@@ -222,7 +291,7 @@
 
 
 
-<div class="card-container mt-4">
+<div class="card-container mt-4" id="card-container">
 
 
   <section class="text-gray-400 bg-gray-900 body-font" style="background-color:#222222;">
@@ -320,6 +389,19 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 
+<style>
+
+  input[type="range"]{
+    width:200%;
+  }
+
+  @media(max-width:1100px){
+    input[type="range"]{
+      width:100%;
+    }
+  }
+
+</style>
 
 {% block js %}
 
