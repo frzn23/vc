@@ -26,15 +26,20 @@
 <div class="intro-img">
 <header class="header">
     <a class="logo" href="/">
-    <img data-aos="fade-right" data-aos-delay="400" src="{% static 'img/hanzo_2022.png' %}" width="170" height="170" alt="">
+    <img data-aos="fade-right" data-aos-delay="400" class="mr-8" src="{% static 'img/hanzo_2022.png' %}" width="170" height="170" alt="">
     </a>
     <input class="menu-btn" type="checkbox" id="menu-btn" />
     <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
     <ul class="menu" style="font-size:1.1rem;">
         <li><a href="order" class="link link-theme link-arrow">Order</a></li>
-        <li><a href="track" class="link link-theme link-arrow">Track-Order</a></li>
+        <li><a href="track" class="link link-theme link-arrow">Track</a></li>
         <li><a href="contact" class="link link-theme link-arrow">Contact</a></li>
         <li><a href="about" class="link link-theme link-arrow">About</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/take_pass" class="link link-theme link-arrow">Account</a></li>
+        {% else %}
+        <li><a href="/take_pass" class="link link-theme link-arrow">Login</a></li>
+        {% endif %}
 
         
     </ul>
@@ -43,7 +48,7 @@
 <div class="intro" id="typed-string">
     
     <h4 class="intro-main">
-    <br>
+    <br><br><br><br>
     We Always Assure That Our Customers Recieve Their Clothings Washed 
     </h4>
 

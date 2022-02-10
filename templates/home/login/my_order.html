@@ -72,7 +72,12 @@
                   <b>
                     {{forloop.counter}}) {{order.order_name}}
                   </b>
-                <button class="btn btn-warning">More Info</button>
+
+                  {% if order.laundry_review == 'No review' %}
+                  <a href="/review/{{order.order_id}}">
+                  <button class="btn btn-warning">Rate Us</button>
+                  </a>
+                  {% endif %}
               </li>
               {% endfor %}
             

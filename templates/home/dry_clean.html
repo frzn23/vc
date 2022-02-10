@@ -15,6 +15,11 @@ tr{
   width:25px;
   height:25px;
 }
+#cart-info-parent{
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: -1px;
+}
 
 {% endblock style %}
 {% block body %}
@@ -46,7 +51,7 @@ tr{
       irrespective of the quantity.
       </b>
       </p>
-
+      
       <div class="flex md:mt-4 mt-6">
         <button class="btn btn-warning btn-lg btn-block bg-yellow-500" onclick="change()" data-toggle="popover" id="popcart" data-container="body" data-placement="bottom" data-html='true' data-content="<h1>No Items In Your Cart</h1>">
         <span id="cart">      
@@ -55,13 +60,25 @@ tr{
         </a>
       </span>
         </button>
-
       </div>
+
     </div>
   </div>
 </section>
 
+{% comment %} <div class="container px-5 py-24 mx-auto flex flex-wrap" id="cart-info-parent">
 
+<div class="flex md:mt-4 mt-6">
+  <button class="btn btn-warning btn-lg btn-block bg-yellow-500" onclick="change()" data-toggle="popover" id="popcart" data-container="body" data-placement="bottom" data-html='true' data-content="<h1>No Items In Your Cart</h1>">
+  <span id="cart">      
+  <a id="cart-info">
+  Add Items To Cart
+  </a>
+</span>
+  </button>
+</div>
+
+</div> {% endcomment %}
 
 <div class="t-c table-responsive" style="width:80%;margin:auto;">
 
@@ -144,7 +161,7 @@ tr{
 
 
 function change(){
-  window.location.href="/dc";
+  window.location.href="/place-order-phone/3";
 }
 
 
@@ -189,7 +206,7 @@ function updatePopover(cart)
         popStr = popStr + document.getElementById('name'+item).innerHTML.slice(0, 27) + "... Qty: " + cart[item][0] + '<br>';
         i = i+1;
     }
-    popStr = popStr + "</div> <a href='/dc'><button class='btn btn-outline-warning' id ='checkout'>Checkout</button></a> <button class='btn btn-outline-warning' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
+    popStr = popStr + "</div> <a href='/place-order-phone/3'><button class='btn btn-outline-warning' id ='checkout'>Checkout</button></a> <button class='btn btn-outline-warning' onclick='clearCart()' id ='clearCart'>Clear Cart</button>     "
     document.getElementById('popcart').setAttribute('data-content', popStr);
     $('#popcart').popover('show');
 }

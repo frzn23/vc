@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Hanzo - How did your experience go by ordering from hanzo{% endblock title %}
+{% block body %}
+
+
+<br><br>
+
+<div class="only-laptop">
+<hr style="border:1px solid black">
+</div>
+
+<br><br><br><br>
+
+
+
+<div class="login-form">
+    <form action="/review/{{id}}" method="post">{% csrf_token %}
+        <ul class="list-group mb-3">
+
+            <li class="list-group-item d-flex justify-content-between bg-light">
+                <div class="text-dark">
+                  <h5 class="my-0">
+                  <b>
+                  Please provide us with a feedback
+                  </b>
+                  </h5>
+                </div> 
+             </li> 
+
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <div class="text-dark">
+                <h5 class="my-0">
+                <b>
+                order Info
+                </b>
+                </h5>
+              </div> 
+            </li> 
+      
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="text-align:center;">
+                <b>
+                <h3 class="my-2 text-dark">Order Info</h3>
+                </b>
+              </div>
+            </li>
+            
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="text-align:center;">
+                <b>
+                <h5 class="my-2 text-dark">Delivery Speed</h5>
+                </b>
+                <div style="width:100%;">
+                  <input type="range" class="form-range" name="speed" min="0" step="1" value="4" max="5" id="customRange2">
+                </div>
+      
+              </div>
+            </li>
+      
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="text-align:center;">
+                <b>
+                <h5 class="my-2 text-dark">Clothes Quality</h5>
+                </b>
+                  <input type="range" name="quality" class="form-range" min="0" step="1" value="4" max="5" id="customRange2">
+                  <input type="hidden" value="{{orders.0.order_id}}" name="review_id">
+              </div>
+            </li>
+      
+      
+            <li class="list-group-item d-flex justify-content-between lh-condensed">
+              <div style="width:100%;">
+                <button class="btn btn-outline-warning btn-lg btn-block text-dark" type="submit">Submit</button>
+              </div>
+            </li>
+      
+      
+      
+          </ul>
+        </div>        
+    </form>
+</div>
+
+
+
+{% endblock body %}
+
+
+{% block style %}
+.login-form {
+    width: 30%;
+    margin: 50px auto;
+  	font-size: 15px;
+}
+@media(max-width:900px){
+    .login-form{
+        width:80%;
+    }
+}
+.login-form form {
+  margin-bottom: 15px;
+  background: #fff;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  color:#111;
+}
+.login-form input{
+background:#111;
+color:white;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}
+
+input[type="range"]{
+    width:200%;
+  }
+
+  @media(max-width:1100px){
+    input[type="range"]{
+      width:100%;
+    }
+  }
+{% endblock style %}
+
+

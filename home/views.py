@@ -85,6 +85,9 @@ def dc(request):
     if request.method=="POST":
         name = request.POST.get('name', '')
         phone = request.POST.get('phone','')
+        phone = request.GET['p']
+        if phone=="":
+            phone = request.POST.get('phone','')
         flat = request.POST.get('flat', '')
         floor = request.POST.get('floor', '')
         location = request.POST.get('location', '')
@@ -93,6 +96,8 @@ def dc(request):
         service = request.POST.get('order_info','')
         price = request.POST.get('order_price','') # to be used while sending msgs
         address = f"{flat}, {floor} Floor, {location}, Near {landmark}"
+        passw = request.POST.get('passw','')
+        email = request.POST.get('email','')
 
         ist = pytz.timezone('Asia/Kolkata')
         now = datetime.now(ist)
@@ -137,11 +142,22 @@ def dc(request):
 
                 # for i in range(3):
                 #     requests.get(url_link)
-                        
-                messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
 
 
+                myuser = User.objects.create_user(phone, email, passw)
+                myuser.first_name= name
+                myuser.save()
+                params = {'user_created':True}
+                user = authenticate(username = phone, password = passw)
 
+                if user is not None:
+                    login(request, user)
+                    messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+                    return redirect("/panel")
+                    
+                else:
+                    messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
+                    return redirect("/signup")
 
         except Exception as e:
             messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
@@ -339,10 +355,14 @@ def order_auth(request,id):
 
 
 def take_phone(request, id):
-    
     if request.user.is_authenticated:
-        return redirect('/panel')
-
+        if id==1:
+            page_redirect="/panel#order1"
+        if id==2:
+            page_redirect="/panel#order2"
+        if id==3:
+            page_redirect="/panel#order3"
+        return redirect(page_redirect)
     if request.method == "POST":
         phone_no = request.POST['phone']
         try:
@@ -353,7 +373,8 @@ def take_phone(request, id):
             service = Services.objects.filter(s_no=id)
             params = {'id':id, 'service':service,'otp_sent':True}
             page_change = f'/place-order/{id}?p={phone_no}'
-            # return render(request, page_change, params)
+            if id==3:
+                page_change = f'/dc?p={phone_no}'
 
             return redirect(page_change)
 
@@ -457,7 +478,45 @@ def panel(request):
 
     else:
         return redirect('/take_pass')
+
+
+def review_sep(request, id):
     
+    if request.user.is_authenticated:
+
+        if request.method=="POST":
+            delivery = int(request.POST.get("speed","4"))
+            quality = int(request.POST.get("quality","4"))
+            order = Order.objects.get(order_id=id)
+            order.laundry_review = int(quality)
+            order.delivery_review = int(delivery)
+            order.save()
+            if delivery<4 and quality<4:
+                messages.success(request,"We are sorry for your bad experience with Washing Quality & Delivery Speed. We will be in touch soon & we will compensate for your discomfort. Next time you order from Hanzo, you will recieve the best service.")
+
+            elif delivery<4:
+                messages.success(request,"We are sorry for your bad experience with delivery speed. We are already looking into the issue. Next time you order from Hanzo, you will recieve the best service.")
+            elif quality<4:
+                messages.success(request,"We are sorry for your bad experience with Washing Quality. We will be in touch soon & we will compensate for your discomfort. Next time you order from Hanzo, you will recieve the best service.")
+            elif delivery>=4 and quality>=4:
+                messages.success(request,"We are thankful for your good review, Please keep using Hanzo and we will be providing you with such luxury service at lowest cost.")
+            return redirect('/panel')
+
+
+        else:
+            order_review_check = Order.objects.get(order_id=id).delivery_review
+            if order_review_check=="No review":
+
+                return render(request, 'home/login/review.html',{'id':id})
+            else:
+                return redirect('/panel')
+
+    else:
+        return redirect('/take_pass')
+
+        
+
+
 def take_review(request):
     if request.user.is_authenticated:
 
