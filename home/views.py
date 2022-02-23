@@ -81,29 +81,43 @@ def dry_clean(request):
     params = {'allProds':allProds}
     return render(request, 'home/dry_clean.html', params)
 
+
 def dc(request):
     if request.method=="POST":
-        name = request.POST.get('name', '')
-        phone = request.POST.get('phone','')
-        phone = request.GET['p']
-        if phone=="":
-            phone = request.POST.get('phone','')
-        flat = request.POST.get('flat', '')
-        floor = request.POST.get('floor', '')
-        location = request.POST.get('location', '')
-        landmark = request.POST.get('landmark','')
-        # service = Services.objects.filter(s_no=id)[0]
-        service = request.POST.get('order_info','')
-        price = request.POST.get('order_price','') # to be used while sending msgs
-        address = f"{flat}, {floor} Floor, {location}, Near {landmark}"
-        passw = request.POST.get('passw','')
-        email = request.POST.get('email','')
+        if request.user.is_authenticated:
+            phone = request.user.username
+            name = request.user.first_name
+            last_order = Order.objects.filter(phone=phone).order_by('-order_id')[0]
+            name = last_order.name
+            service = request.POST.get('order_info','')
+            address = last_order.address
+            ist = pytz.timezone('Asia/Kolkata')
+            now = datetime.now(ist)
+            timing = now.strftime("%d/%m/%Y %I:%M %p")
 
-        ist = pytz.timezone('Asia/Kolkata')
-        now = datetime.now(ist)
-        
-        timing = now.strftime("%d/%m/%Y %I:%M %p")
-        
+
+
+        else:
+            name = request.POST.get('name', '')
+            phone = request.POST.get('phone','')
+            phone = request.GET['p']
+            if phone=="":
+                phone = request.POST.get('phone','')
+            flat = request.POST.get('flat', '')
+            floor = request.POST.get('floor', '')
+            location = request.POST.get('location', '')
+            landmark = request.POST.get('landmark','')
+            # service = Services.objects.filter(s_no=id)[0]
+            service = request.POST.get('order_info','')
+            price = request.POST.get('order_price','') # to be used while sending msgs
+            address = f"{flat}, {floor} Floor, {location}, Near {landmark}"
+            passw = request.POST.get('passw','')
+            email = request.POST.get('email','')
+
+            ist = pytz.timezone('Asia/Kolkata')
+            now = datetime.now(ist)
+            
+            timing = now.strftime("%d/%m/%Y %I:%M %p")
 
         try:
 
@@ -143,27 +157,38 @@ def dc(request):
                 # for i in range(3):
                 #     requests.get(url_link)
 
+                if not request.user.is_authenticated:
 
-                myuser = User.objects.create_user(phone, email, passw)
-                myuser.first_name= name
-                myuser.save()
-                params = {'user_created':True}
-                user = authenticate(username = phone, password = passw)
+                    myuser = User.objects.create_user(phone, email, passw)
+                    myuser.first_name= name
+                    myuser.save()
+                    params = {'user_created':True}
+                    user = authenticate(username = phone, password = passw)
 
-                if user is not None:
-                    login(request, user)
-                    messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
-                    return redirect("/panel")
+                    if user is not None:
+                        login(request, user)
+                        messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+                        return redirect("/panel")
+                        
+                    else:
+                        messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
+                        return redirect("/dry-clean")
+
+                messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+                return redirect("/panel")
                     
-                else:
-                    messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
-                    return redirect("/signup")
-
         except Exception as e:
             messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
 
+    if request.user.is_authenticated:
+        phone = request.user.username
+        name = request.user.first_name
+        last_order = Order.objects.filter(phone=phone).order_by('-order_id')[0]
+        params = {'address':last_order.address}
+        return render(request, 'home/dc_form.html',params)
 
-    return render(request, 'home/dc_form.html')
+    else:
+        return render(request, 'home/dc_form.html')
 
 
 
@@ -205,12 +230,14 @@ def order_info(request, id):
         service = Services.objects.filter(s_no=id)[0]
         passw = request.POST.get('passw','')
         email = request.POST.get('email','')
+        code = request.POST.get('code','-')
 
         ist = pytz.timezone('Asia/Kolkata')
         now = datetime.now(ist)
         
         timing = now.strftime("%d/%m/%Y %I:%M %p")
         
+
 
         try:
 
@@ -221,7 +248,7 @@ def order_info(request, id):
             else:
                 
                 # params = {'name':name, 'phone':phone, 'service':service, 'address':address, 'now':now}
-                order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="")
+                order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="", refer_code=code)
 
                 order.save()
                 
@@ -283,6 +310,9 @@ def order_info(request, id):
 
 
     if id==1 or id==2 or id==3 or id==4:
+        if request.user.is_authenticated:
+            page = f"/panel#order{id}"
+            return redirect(page)
         try:
             phone_get = request.GET['p']
         except:
@@ -309,9 +339,14 @@ def order_auth(request,id):
             ist = pytz.timezone('Asia/Kolkata')
             now = datetime.now(ist)
             timing = now.strftime("%d/%m/%Y %I:%M %p")
+            
+            # Retrieve Last Order Code
+            last_order = Order.objects.filter(phone=phone).order_by("-order_id")[0]
+            code = last_order.refer_code
+
 
             try:
-                order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="")
+                order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="",refer_code=code)
                 order.save()
                 
                 if iron_need=="on":
@@ -361,7 +396,7 @@ def take_phone(request, id):
         if id==2:
             page_redirect="/panel#order2"
         if id==3:
-            page_redirect="/panel#order3"
+            page_redirect="/dc"
         return redirect(page_redirect)
     if request.method == "POST":
         phone_no = request.POST['phone']
@@ -513,8 +548,6 @@ def review_sep(request, id):
 
     else:
         return redirect('/take_pass')
-
-        
 
 
 def take_review(request):

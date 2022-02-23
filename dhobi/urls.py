@@ -8,4 +8,6 @@ urlpatterns = [
     path('main-master/', admin.site.urls),
     path('', include('home.urls')),
     path('master/', include('master.urls')),
+    path('delivery/', include('delivery.urls')),
+    path('laundry-panel/', include('laundry.urls')),
 ]

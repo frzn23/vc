@@ -1,0 +1,168 @@
+{% extends 'dbase.html' %}
+{% block title %}Hanzo Delivery & Pickup Portal{% endblock title %}
+{% block body %}
+
+
+
+<div class="only-laptop">
+<br><br>
+<hr style="border:1px solid black">
+</div>
+
+<br><br>
+<center>
+<div class="p-2 w-1/2">
+  <div class="relative">
+ <form action="" method="post"> {% csrf_token %}
+    <input type="number" id="name" name="id" placeholder="Enter Order Id" class="w-100 bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+      <button type="submit" class="flex mx-auto text-white bg-yellow-500 border-0 py-2 px-8 mt-4 focus:outline-none hover:bg-indigo-600 rounded text-lg">SEARCH</button>
+  </form>
+
+  </div>
+</div>
+</center>
+<br><br>
+
+{% if request == True %}
+<div style="width:80%;margin:auto;">
+  
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong>Status Changed</strong>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+</div>
+{% endif %}
+<section class="text-gray-600 body-font overflow-hidden">
+  {% for i in order %}
+    <div class="container px-5 py-24 mx-auto" style="border:2px solid black;" bis_skin_checked="1">
+      <div class="-my-8 divide-y-2 divide-gray-100" bis_skin_checked="1">
+        <div class="py-8 flex flex-wrap md:flex-nowrap" bis_skin_checked="1">
+          <div class="md:mb-0 mr-8 ml-2 mb-6 flex-shrink-0 flex flex-col" style="border-right:2px solid black;" bis_skin_checked="1">
+            <span class="font-bold title-font text-gray-700"><h3><b>ID : {{i.order_id}}</b></h3>
+              <a href="tel:{{i.phone}}">
+                <span class="font-bold title-font text-gray-700 mr-4"><h3><b>{{i.phone}} &nbsp;&nbsp;&nbsp;</b></h3>
+                </a>
+              <span class="font-bold title-font text-gray-700 mr-4"><h3><b>{{i.name}}</b></h3>
+
+                </span>
+    
+                  <span class="inline-block h-1 w-50 rounded bg-yellow-500 mb-6"></span>
+
+                  <br>
+
+            <br><br><br>
+
+          </div>
+          <div class="md:flex-grow" bis_skin_checked="1">
+            <br>
+
+            <h1 class="text-3xl font-medium text-gray-900 title-font mb-2">{{i.order_name}}</h1>
+            <h3 class="leading-relaxed">
+            Address:
+            <b>
+            {{i.address}}
+            </b>
+            </h3>
+            
+            <h3 class="leading-relaxed">
+              Laundry:
+              <b>
+              {% if i.refer_code == "hamd" %}
+              Al-Hamd
+              {% elif i.refer_code == "shine" %}  
+              Shining Laundry
+              {% elif i.refer_code == "fine" %}  
+              Finewash Laundry
+              {% else %}
+              Any
+              {% endif %}
+              </b>
+            </h3>
+
+            <h1 class="text-dark">
+
+            Actions:
+            <br>
+
+            <span class="inline-block h-1 w-50 rounded bg-yellow-500 mt-8 mb-6"></span>
+
+            </h1>
+                <a href="status/{{i.order_id}}">
+                <button class="btn btn-warning btn-lg">Status</button>
+                </a>
+                <a href="comment/{{i.order_id}}">
+
+                <button class=" btn btn-outline-success btn-lg">Comment</button>
+                </a>
+            <br><br>
+
+
+        </div>
+        </div>
+
+        </div>
+      </div>
+      <br>
+      {% endfor %}
+
+  </section>
+
+<br><br>
+
+
+{% if no_order %}
+
+<h1>
+<center>
+  No Orders Found.
+</center>
+</h1>
+<br><br><br><br>
+{% endif %}
+
+<br><br><br><br>
+<br><br><br><br>
+
+{% for message in messages %}
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Task Completed</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+      <img src="{{message.tags}}" style='width:50%' class="rounded mx-auto d-block" alt="...">
+        {{message}}
+      </b>
+      </div>
+      
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+<script>
+  function show_Modal(){
+    $('#myModal').modal('show');
+  }
+</script>
+
+{% if messages %}
+<script>
+show_Modal();
+</script>
+
+{% endif %}
+
+
+
+
+{% endblock body %}

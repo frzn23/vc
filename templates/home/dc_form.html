@@ -100,11 +100,21 @@
           
           <form action="" method="POST" id="orderForm">  {% csrf_token %}
             <div class="row">
+              {% if user.is_authenticated %}
+
+              
+              <div class="form-group" style="width:90%;margin:auto;">
+                <input type="hidden" name="order_info" id="orders" value="">
+                <input type="hidden" name="order_price" id="price" value="">
+                <label for="exampleFormControlTextarea1">Address</label>
+                <textarea class="form-control mb-4" value="{{address}}" id="exampleFormControlTextarea1" rows="3">{{address}}</textarea>
+              </div>
+
+              {% else %}
+
               <div class="col-md-6 mb-3">
                 <label for="firstName">Full name</label>
                 <input type="text" id="name" name="name" class="form-control" placeholder="" required>
-
-
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Phone No.</label>
@@ -168,6 +178,9 @@
                 <label for="username">Password</label>
                 <input type="password" class="form-control" name="passw" placeholder="Password" >
               </div>
+              
+
+              {% endif %}
 
                     <button type="submit" class="btn btn-block btn-warning">Place Order</button>
                   </div>

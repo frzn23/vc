@@ -17,7 +17,7 @@
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background-color:black;color:#ffca18;margin-bottom:-1%;">
-        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Request</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle">Thanks For Your Order</h5>
         <button type="button" class="close" style="color:white" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -202,7 +202,17 @@
                 <label for="username">Password</label>
                 <input type="password" class="form-control" name="passw" placeholder="Password" >
               </div>
+              
+              <div class="form-group"  id="code" style="display:none;">
+                <label id="code-label">Laundry Code</label>
+                <input type="text" class="form-control" name="code" placeholder="Laundry Code" >
+              </div>
 
+              <div class="form-group">
+                <a href="#" id="refer-anchor" onclick="createInput()">
+                <label id="ask-refer"><u>Have A Referral Code?</u></label>
+                </a>
+              </div>
                     <button type="submit" class="btn btn-block btn-warning">Place Order</button>
                   </div>
                   <div class="modal-footer">
@@ -236,8 +246,19 @@
   function show_Modal(){
     $('#myModal').modal('show');
   }
-</script>
+  function createInput(){
 
+    document.getElementById("code").style.display="block";
+    document.getElementById("ask-refer").innerHTML="<label id='ask-refer'><u>Hide Laundry Code</u></label>";
+    document.getElementById('refer-anchor').setAttribute('onclick','hideInput()');
+  }
+  function hideInput(){
+    document.getElementById("code").style.display="none";
+    document.getElementById("ask-refer").innerHTML="<label id='ask-refer'><u>Have A Referral Code?</u></label>";
+    document.getElementById('refer-anchor').setAttribute('onclick','createInput()');
+
+  }
+  </script>
 {% if messages %}
 <script>
 show_Modal();

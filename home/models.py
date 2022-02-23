@@ -34,12 +34,13 @@ class Order(models.Model):
     timing = models.CharField(max_length=1000)
     status = models.CharField(max_length=1000, default="Order Placed")
     f_stat = models.IntegerField()
-    comment = models.CharField(max_length=1000)
+    comment = models.CharField(max_length=1000, default="-")
     weight = models.CharField(max_length=1000, default="Not Specified")
     laundry_price = models.CharField(max_length=1000, default="Not defined Yet")
     costumer_price = models.CharField(max_length=1000, default="Not defined Yet")
     laundry_review = models.CharField(max_length=1000, default="No review")
     delivery_review = models.CharField(max_length=1000, default="No review")
+    refer_code = models.CharField(max_length=1000, default="-")
 
     def __str__(self):
         return f"ID : {self.order_id}, Order : {self.name}, Phone : {self.phone}, Order:{self.order_name}"

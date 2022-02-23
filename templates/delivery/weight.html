@@ -1,0 +1,82 @@
+{% extends 'dbase.html' %}
+{% block title %}Hanzo Delivery & Pickup Portal{% endblock title %}
+{% block body %}
+
+<br><br>
+
+<div class="only-laptop">
+<hr style="border:1px solid black">
+</div>
+
+
+
+<div class="login-form">
+    <form action="/take_pass" method="post">{% csrf_token %}
+        <h2 class="text-center">Add Weight</h2> 
+        <br>
+
+            
+        <div class="form-group">
+            <input type="number" class="form-control" placeholder="Weight">
+        </div>
+
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+            <label class="form-check-label" for="defaultCheck1">
+              I Have Checked All Details.
+            </label>
+          </div>
+
+        <br>      
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-warning btn-block">Add Weight</button>
+        </div>
+        <br>      
+
+    </form>
+</div>
+
+<br>
+<br>
+
+
+{% endblock body %}
+
+{% block style %}
+.login-form {
+    width: 30%;
+    margin: 50px auto;
+  	font-size: 15px;
+}
+@media(max-width:900px){
+    .login-form{
+        width:80%;
+    }
+}
+.login-form form {
+  margin-bottom: 15px;
+  background: #111;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 30px;
+  color:#fff;
+}
+.login-form input{
+background:#111;
+color:white;
+}
+.login-form h2 {
+    margin: 0 0 15px;
+}
+.form-control, .btn {
+    min-height: 38px;
+    border-radius: 2px;
+}
+.btn {        
+    font-size: 15px;
+    font-weight: bold;
+}
+{% endblock style %}
+
+
+
