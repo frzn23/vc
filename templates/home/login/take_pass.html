@@ -126,6 +126,14 @@ color:white;
   function show_Modal(){
     $('#myModal').modal('show');
   }
+
+  if(document.getElementById('phone').value==""){
+    document.getElementById('phone').value = localStorage.getItem("phone");
+  }
+    document.getElementById('passw').value = localStorage.getItem("passw");
+
+
+
 </script>
 
 

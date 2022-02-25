@@ -20,6 +20,15 @@
 
         </h1>
       </div>
+      
+      {% if order.comment|length > 4 %}
+      <div class="alert alert-primary" role="alert">
+        <h3>
+        SPECIAL INSTRUCTION
+        </h3>
+        {{order.comment}}
+      </div>
+      {% endif %}
 
       <div class="flex flex-wrap -m-4" bis_skin_checked="1">
 

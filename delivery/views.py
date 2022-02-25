@@ -18,6 +18,9 @@ from reportlab.lib.styles import getSampleStyleSheet
 
 
 def index(request):
+    if not request.user.is_authenticated:
+        return redirect('/delivery/login')
+
     if request.method=="POST":
         filter_id = request.POST['id']
         orders = list(Order.objects.filter(order_id=filter_id))
@@ -41,6 +44,9 @@ def index(request):
 
 
 def status(request,id):
+    if not request.user.is_authenticated:
+        return redirect('/delivery/login')
+
     c_id=int(id)
     orders = Order.objects.filter(order_id=c_id)[0]
     stat = orders.status.split(',')
@@ -57,13 +63,12 @@ def status(request,id):
         Order.objects.filter(order_id=c_id).update(status=new_status, timing=new_timing)
 
         if update=="Order Picked":
-            weight = request.POST['weight']
+            weight = request.POST['weight']            
+
             Order.objects.filter(order_id=id).update(weight=weight)
 
 
             name = f"Name : {orders.name}"
-            # address = orders.address
-            # type = orders.order_name
             order_name = orders.order_name
             # print(order_name)
             if order_name=="Wash & Fold":
@@ -81,7 +86,6 @@ def status(request,id):
                 var_pass = True            
 
 
-        if update=="In Laundry":
             if orders.order_name == "Wash & Fold" or orders.order_name == "Wash & Iron":
 
                 msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Picked From Your Doorstep & Recieved at Laundry, It Will Be Delivered Within 20 Hours. Keep using hanzo.co.in"     
@@ -89,7 +93,13 @@ def status(request,id):
                 msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Picked From Your Doorstep & Recieved at Laundry, It Will Be Delivered Within 54 Hours. Keep using hanzo.co.in"     
 
             to_client =f"+91{orders.phone}"
+
     
+        if update=="In Laundry":
+            laundry_name = request.POST.get('laundry_name','')
+            Order.objects.filter(order_id=id).update(refer_code=laundry_name)
+
+
 
 
         if update=="Delivered":
@@ -104,6 +114,8 @@ def status(request,id):
 
 
 def comment(request,id):
+    if not request.user.is_authenticated:
+        return redirect('/delivery')
     orders = list(Order.objects.filter(order_id=id))
     params = {'order':orders}
     if request.method=="POST":
@@ -113,8 +125,32 @@ def comment(request,id):
         orders.save()
     return render(request, 'delivery/comment.html',params)
 
-def weight(request,id):
-    return render(request, 'delivery/weight.html')
+def login_del(request):
+    if request.user.is_authenticated:
+        if request.user.last_name == 'delivery':
+            return redirect('/delivery')
+        else:
+            return redirect('/delivery/logout')
+    else:
+        if request.method=="POST":
+            user_name = request.POST.get('username','')
+            pass_word = request.POST.get('password','')
+            user = authenticate(username=user_name, password=pass_word)
+            if user is not None:
+                login(request, user)
+                last_name = request.user.last_name
+                if last_name == 'delivery':
+                    return redirect('/delivery')
+                else:
+                    return redirect('/delivery/logout')
+        
+            else:
+                return render(request, 'delivery/login.html',{'auth_fail':True})
+        return render(request, 'delivery/login.html')
+
+def logout_del(request):
+    logout(request)
+    return redirect('/delivery/login')
 
 
 def make_pdf(n,s,p):

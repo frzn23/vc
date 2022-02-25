@@ -36,55 +36,12 @@ def send_mail(subject, body, to):
 
 
 # Create your views here.
-def index(request):
 
-
-    service = Services.objects.filter(pr="true")
-    params = {'service':service}
-
-    return render(request,'home/home.html', params)
-
-def about(request):
-    return render(request, 'home/about.html')
-
-def order(request):
-    service = Services.objects.filter(pr="true")
-    params = {'service':service}
-    return render(request, 'home/pricing.html', params)
-
-def contact(request):
-    if request.method=="POST":
-        name = request.POST.get('name','')
-        phone = request.POST.get('phone','')
-        email = request.POST.get('email','No email provided')
-        content = request.POST.get('msg','')
-        mail_content = f"Name - {name} | Phone - {phone} | Email - {email} | Message - {content}"
-        send_mail("Query Recieved For HANZO",mail_content,"farzeenghaus23@gmail.com")
-        messages.success(request,"Your Query Has Reached Us And We Will Be In Touch Shortly")
-        return render(request, "home/contact.html")
-
-    return render(request, "home/contact.html")
-
-
-
-def dry_clean(request):
-    
-    
-
-    allProds = []
-    catprods = dry_clean_services.objects.values('s_parent', 's_no')
-    cats = {item['s_parent'] for item in catprods}
-    for cat in cats:
-        prod = dry_clean_services.objects.filter(s_parent=cat)
-        allProds.append(prod)
-
-    params = {'allProds':allProds}
-    return render(request, 'home/dry_clean.html', params)
 
 
 def dc(request):
     if request.method=="POST":
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and request.user.last_name=='c':
             phone = request.user.username
             name = request.user.first_name
             last_order = Order.objects.filter(phone=phone).order_by('-order_id')[0]
@@ -148,16 +105,11 @@ def dc(request):
                     
                     
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
-                # for i in to_us:
-                #     message = client.messages.create(
-                #         to=i, 
-                #         from_="+17067603908",
-                #         body=msg_us)
+                
 
-                # for i in range(3):
-                #     requests.get(url_link)
+                # requests.get(url_link)
 
-                if not request.user.is_authenticated:
+                if not request.user.is_authenticated and request.user.last_name=='c':
 
                     myuser = User.objects.create_user(phone, email, passw)
                     myuser.first_name= name
@@ -180,7 +132,7 @@ def dc(request):
         except Exception as e:
             messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
 
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name=='c':
         phone = request.user.username
         name = request.user.first_name
         last_order = Order.objects.filter(phone=phone).order_by('-order_id')[0]
@@ -188,28 +140,20 @@ def dc(request):
         return render(request, 'home/dc_form.html',params)
 
     else:
-        return render(request, 'home/dc_form.html')
+        
+        try:
+            phone_get = request.GET['p']
+        except:
+            phone_get = False
+        
+        if phone_get==False:
+            no_phone_page = '/place-order-phone/3'
+            return redirect(no_phone_page)
+        else:
+            params = {'id':id,'phone_get':phone_get}
+        return render(request, "home/dc_form.html", params)
+        
 
-
-
-def feedback(request, id):
-    order_list = list(Order.objects.filter(order_id=id, f_stat=0))
-    if len(order_list) !=0:
-    
-        if request.method=="POST":
-            change_order = Order.objects.get(order_id=id)
-            msg = request.POST.get('feedback', '')
-            mail_content = f"Feedback -->  {msg} Feedback Sent by order no -{id}"
-            change_order.f_stat = 1
-            change_order.save()
-            send_mail("Feedback Recieved For HANZO",mail_content,"farzeenghaus23@gmail.com")
-            messages.success(request,"Thanks for your feedback, It means a lot to us. We will keep your opinion in our minds")
-            return redirect("/")
-
-        return render(request, "home/feedback.html")
-    
-    else:
-        return redirect('/')
 
 
 def order_info(request, id):
@@ -273,19 +217,15 @@ def order_info(request, id):
                 #     body=msg_for_client)
                     
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
-                # for i in to_us:
-                #     message = client.messages.create(
-                #         to=i, 
-                #         from_="+17067603908",
-                #         body=msg_us)
+                # requests.get(url_link)
 
-                # for i in range(3):
-                #     requests.get(url_link)
+
 
                 # messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
 
                 myuser = User.objects.create_user(phone, email, passw)
                 myuser.first_name= name
+                myuser.last_name= 'c'
                 myuser.save()
                 params = {'user_created':True}
                 user = authenticate(username = phone, password = passw)
@@ -300,9 +240,6 @@ def order_info(request, id):
                     return redirect("/signup")
 
 
-                # params = {'name':name,'phone':phone}
-                # return render(request,'home/login/order_pass.html',params)
-
 
         except Exception as e:
             messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
@@ -310,7 +247,7 @@ def order_info(request, id):
 
 
     if id==1 or id==2 or id==3 or id==4:
-        if request.user.is_authenticated:
+        if request.user.is_authenticated and request.user.last_name=='c':
             page = f"/panel#order{id}"
             return redirect(page)
         try:
@@ -320,12 +257,15 @@ def order_info(request, id):
         service = Services.objects.filter(s_no=id)
         if phone_get==False:
             params = {'id':id, 'service':service,'otp_sent':True}
+            no_phone_page = f'/place-order-phone/{id}'
+            return redirect(no_phone_page)
         else:
             params = {'id':id, 'service':service,'otp_sent':True,'phone_get':phone_get}
         return render(request, "home/order_form.html", params)
     else:
         return redirect('/')
-    
+
+
 def order_auth(request,id):
     if request.method=="POST":
         
@@ -369,14 +309,8 @@ def order_auth(request,id):
                 #     body=msg_for_client)
                     
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
-                # for i in to_us:
-                #     message = client.messages.create(
-                #         to=i, 
-                #         from_="+17067603908",
-                #         body=msg_us)
+                # requests.get(url_link)
 
-                # for i in range(3):
-                #     requests.get(url_link)
 
                 messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
                 return redirect('/panel')
@@ -390,7 +324,7 @@ def order_auth(request,id):
 
 
 def take_phone(request, id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name=='c':
         if id==1:
             page_redirect="/panel#order1"
         if id==2:
@@ -423,7 +357,7 @@ def take_phone(request, id):
 
 
 def take_pass(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name=='c':
         return redirect('/panel')
     if request.method=="POST":
         phone = request.POST['phone']
@@ -469,8 +403,9 @@ def take_pass(request):
 
     return render(request, 'home/login/order_pass.html')
 
+
 def my_order(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name=='c':
         phone = request.user.username
         name = request.user.first_name
         orders = Order.objects.filter(phone=phone)
@@ -480,8 +415,9 @@ def my_order(request):
     else:
         return redirect('/take_pass')
 
+
 def panel(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name=='c':
         phone = request.user.username
         name = request.user.first_name
         orders = Order.objects.filter(phone=phone).order_by('-order_id')
@@ -493,6 +429,7 @@ def panel(request):
             loop_range=total_order
         address = orders[0].address
         last_order=orders[0].order_name
+        refer_code = orders[0].refer_code
 
         last_review=orders[0].laundry_review
         if last_review == "No review":
@@ -508,7 +445,9 @@ def panel(request):
         time = orders[0].timing
         time = time.split(',')
         mylist=zip(stat,time)
-        params = {'phone':phone, 'name':name, 'orders':orders,'service':service, 'address':address,'loop_range':loop_range,'last_order':last_order,'review':review,'order':order,'mylist':mylist}
+        params = {'phone':phone, 'name':name, 'orders':orders,'service':service,
+         'address':address,'loop_range':loop_range,'last_order':last_order,
+         'review':review,'order':order,'mylist':mylist, 'refer_code':refer_code}
         return render(request, 'home/login/panel.html',params)
 
     else:
@@ -517,7 +456,7 @@ def panel(request):
 
 def review_sep(request, id):
     
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name=='c':
 
         if request.method=="POST":
             delivery = int(request.POST.get("speed","4"))
@@ -526,6 +465,10 @@ def review_sep(request, id):
             order.laundry_review = int(quality)
             order.delivery_review = int(delivery)
             order.save()
+            review_text = f'Review Recieved For Order Id - {id}: Laundry - {quality} Stars. Delivery - {delivery} Stars.'
+            url_link = f"https://api.telegram.org/bot5172631902:AAG9EUXR_WOF9SY07A36aUKI5lo88o1ZbTc/sendMessage?chat_id=-647444639&text={review_text}"
+            requests.get(url_link)
+
             if delivery<4 and quality<4:
                 messages.success(request,"We are sorry for your bad experience with Washing Quality & Delivery Speed. We will be in touch soon & we will compensate for your discomfort. Next time you order from Hanzo, you will recieve the best service.")
 
@@ -551,7 +494,7 @@ def review_sep(request, id):
 
 
 def take_review(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name=='c':
 
         if request.method=="POST":
             delivery = int(request.POST.get("speed","4"))
@@ -561,6 +504,11 @@ def take_review(request):
             order.laundry_review = int(quality)
             order.delivery_review = int(delivery)
             order.save()
+            
+            review_text = f'Review Recieved For Order Id - {order_id}: Laundry - {quality} Stars. Delivery - {delivery} Stars.'
+            url_link = f"https://api.telegram.org/bot5172631902:AAG9EUXR_WOF9SY07A36aUKI5lo88o1ZbTc/sendMessage?chat_id=-647444639&text={review_text}"
+            requests.get(url_link)
+
             if delivery<4 and quality<4:
                 messages.success(request,"We are sorry for your bad experience with Washing Quality & Delivery Speed. We will be in touch soon & we will compensate for your discomfort. Next time you order from Hanzo, you will recieve the best service.")
 
@@ -577,6 +525,8 @@ def take_review(request):
             return redirect('/panel')
     else:
         return redirect('/take_pass')
+
+
 
 
 def track(request):
@@ -608,8 +558,6 @@ def track(request):
 
     else:
         return render(request, 'home/track.html')
-
-
 
 def cancel(request):
     if request.method=="POST":
@@ -650,5 +598,64 @@ def cancel(request):
     else:
         return render(request, 'home/cancel.html')
 
+def index(request):
 
 
+    service = Services.objects.filter(pr="true")
+    params = {'service':service}
+
+    return render(request,'home/home.html', params)
+
+def about(request):
+    return render(request, 'home/about.html')
+
+def order(request):
+    service = Services.objects.filter(pr="true")
+    params = {'service':service}
+    return render(request, 'home/pricing.html', params)
+
+def contact(request):
+    if request.method=="POST":
+        name = request.POST.get('name','')
+        phone = request.POST.get('phone','')
+        email = request.POST.get('email','No email provided')
+        content = request.POST.get('msg','')
+        mail_content = f"Name - {name} | Phone - {phone} | Email - {email} | Message - {content}"
+        send_mail("Query Recieved For HANZO",mail_content,"farzeenghaus23@gmail.com")
+        messages.success(request,"Your Query Has Reached Us And We Will Be In Touch Shortly")
+        return render(request, "home/contact.html")
+
+    return render(request, "home/contact.html")
+
+def dry_clean(request):
+
+    allProds = []
+    catprods = dry_clean_services.objects.values('s_parent', 's_no')
+    cats = {item['s_parent'] for item in catprods}
+    for cat in cats:
+        prod = dry_clean_services.objects.filter(s_parent=cat)
+        allProds.append(prod)
+
+    params = {'allProds':allProds}
+    return render(request, 'home/dry_clean.html', params)
+
+
+
+def feedback(request, id):
+    order_list = list(Order.objects.filter(order_id=id, f_stat=0))
+    if len(order_list) !=0:
+    
+        if request.method=="POST":
+            change_order = Order.objects.get(order_id=id)
+            msg = request.POST.get('feedback', '')
+            mail_content = f"Feedback -->  {msg} Feedback Sent by order no -{id}"
+            change_order.f_stat = 1
+            change_order.save()
+            send_mail("Feedback Recieved For HANZO",mail_content,"farzeenghaus23@gmail.com")
+            messages.success(request,"Thanks for your feedback, It means a lot to us. We will keep your opinion in our minds")
+            return redirect("/")
+
+        return render(request, "home/feedback.html")
+    
+    else:
+        return redirect('/')

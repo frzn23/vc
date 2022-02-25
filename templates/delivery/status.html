@@ -31,6 +31,25 @@
                 <option>Delivered</option>
                 {% endif %}
               </select>
+
+
+              {% if last_status == " Order Picked" %}
+              <label class="form-check-label" for="defaultCheck1">
+              <br>
+
+                Which laundry will you drop this shipment:
+              <br>
+
+              </label>
+
+                <select class="form-control" id="exampleFormControlSelect1" name="laundry_name">
+                    <option value="hamd"> Al Hamd </option>
+                    <option value="bilal"> Bilal </option>
+                    <option value="shine"> Shining Laundry </option>
+
+                </select>
+                {% endif %}
+
               {% if last_status == "Order Placed" %}
               
               {% if orders.order_name != "Wash & Iron" or orders.order_name != "Wash & Fold" %}

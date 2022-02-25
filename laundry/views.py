@@ -16,7 +16,7 @@ from twilio.rest import Client
 
 
 def index(request):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.last_name!='c' and request.user.last_name!='delivery':
         my_code = request.user.last_name
         if my_code != 'db' or my_code != '':
             orders = Order.objects.filter(refer_code=my_code)
@@ -99,6 +99,7 @@ def more(request,id):
 
     else:
         return render(request, 'laundry/more.html')
+
 
 def signin(request):
     laundry_list = ['hamd', 'shine', 'fine']

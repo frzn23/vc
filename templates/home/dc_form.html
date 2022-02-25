@@ -91,7 +91,10 @@
 
 
           </ul>
-
+          <a href="/place-order-phone/3">
+            <u> Go Back </u>
+          </a>
+  
 
         </div>
 
@@ -118,7 +121,7 @@
               </div>
               <div class="col-md-6 mb-3">
                 <label for="lastName">Phone No.</label>
-                <input type="tel" id="phone" name="phone" maxlength="10" minlength="10" class="form-control" placeholder="" required>
+                <input type="tel" id="phone" name="phone" maxlength="10" minlength="10" class="form-control" placeholder="" value={{phone_get}} required disabled>
               </div>
             </div>
 
@@ -176,7 +179,7 @@
 
               <div class="form-group">
                 <label for="username">Password</label>
-                <input type="password" class="form-control" name="passw" placeholder="Password" >
+                <input type="password" class="form-control" id="passw" name="passw" placeholder="Password" >
               </div>
               
 
@@ -312,6 +315,8 @@ $('#orderForm').submit(function(event) {
   flat = document.getElementById('flat').value;
   floor = document.getElementById('floor').value;
   lmark = document.getElementById('lmark').value;
+  passw = document.getElementById('passw').value;
+
   //info_new = [name, phone, flat, floor, lmark];
   //event.preventDefault();
   event.returnValue = false;
