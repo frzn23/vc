@@ -266,6 +266,7 @@ def order_info(request, id):
         return redirect('/')
 
 
+
 def order_auth(request,id):
     if request.method=="POST":
         
@@ -323,6 +324,7 @@ def order_auth(request,id):
         return redirect('/panel')
 
 
+
 def take_phone(request, id):
     if request.user.is_authenticated and request.user.last_name=='c':
         if id==1:
@@ -372,36 +374,6 @@ def take_pass(request):
             return render(request, 'home/login/take_pass.html',{'no_user':True,'phone':phone})
 
     return render(request, 'home/login/take_pass.html')
-
-# def signup(request):
-    if request.method=="POST":
-        name = request.POST['name']
-        phone = request.POST.get('phone','')
-        email = request.POST['email']
-        passw = request.POST['passw']
-        remember = request.POST.get('remember', 'off')
-        
-        try:
-            user_exists = User.objects.get(username=phone)
-            return render(request,'home/login/order_pass.html',{'user_exist':True})
-        except User.DoesNotExist:
-            myuser = User.objects.create_user(phone, email, passw)
-            myuser.first_name= name
-            myuser.save()
-            params = {'user_created':True}
-            user = authenticate(username = phone, password = passw)
-
-            if user is not None:
-                login(request, user)
-                return redirect('/')
-            else:
-                messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
-                return redirect("/signup")
-            # return render(request,'home/login/order_pass.html',params)
-        
-
-
-    return render(request, 'home/login/order_pass.html')
 
 
 def my_order(request):
@@ -454,6 +426,11 @@ def panel(request):
         return redirect('/take_pass')
 
 
+
+def change_pass(request):
+    return render(request, 'home/login/forget.html')
+
+
 def review_sep(request, id):
     
     if request.user.is_authenticated and request.user.last_name=='c':
@@ -492,7 +469,6 @@ def review_sep(request, id):
     else:
         return redirect('/take_pass')
 
-
 def take_review(request):
     if request.user.is_authenticated and request.user.last_name=='c':
 
@@ -525,9 +501,6 @@ def take_review(request):
             return redirect('/panel')
     else:
         return redirect('/take_pass')
-
-
-
 
 def track(request):
 
@@ -638,8 +611,6 @@ def dry_clean(request):
 
     params = {'allProds':allProds}
     return render(request, 'home/dry_clean.html', params)
-
-
 
 def feedback(request, id):
     order_list = list(Order.objects.filter(order_id=id, f_stat=0))

@@ -16,7 +16,7 @@ urlpatterns = [
     path('dc', views.dc),
     path('place-order-phone/<int:id>', views.take_phone),
     path('take_pass', views.take_pass),
-    # path('signup', views.signup),
+    path('forget-password', views.change_pass),
     path('order-auth/<int:id>', views.order_auth),
     path('panel', views.panel),
     path('my-orders', views.my_order),
