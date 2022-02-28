@@ -107,7 +107,7 @@ def signin(request):
     laundry_list = ['hamd', 'shine', 'fine']
     if request.user.is_authenticated:
         laundry_exist = laundry_list.count(request.user.last_name)
-        if laundry_exist > 1:
+        if laundry_exist > 0:
             return redirect('/laundry-panel')
         else:
             return redirect('/')
