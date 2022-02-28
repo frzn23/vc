@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-1*j6_)_y_@y&88(d8m3)58-cq9ik$$b0!ipk%$xf%$(+ivdj0q'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['127.0.0.1','hanzo.co.in','162.241.65.41','192.168.31.52']
 
@@ -134,5 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MESSAGE_TAGS = {
     messages.ERROR:'/static/img/cut.png',
-    messages.SUCCESS:'/static/img/tick.gif'
+    messages.SUCCESS:'/static/img/tick.gif',
 }

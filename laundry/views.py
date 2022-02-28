@@ -13,6 +13,7 @@ from home.models import Order
 from datetime import datetime
 import pytz, os, random
 from twilio.rest import Client
+import requests
 
 
 def index(request):
@@ -40,8 +41,9 @@ def more(request,id):
         my_code = request.user.last_name
         if my_code != 'db' or my_code != '':
             orders = Order.objects.filter(refer_code=my_code)
-            url_link = f"https://api.telegram.org/bot5282886784:AAHTAX7RvbhewVLYI1lWQ5EH46cAdn35NTk/sendMessage?chat_id=-774401073&text=TESTING"
-
+            msg = f"Order with order Id - {order_id} Is Ready To Be Picked Please Reach As Soon As Possible."
+            url_link = f"https://api.telegram.org/bot5282886784:AAHTAX7RvbhewVLYI1lWQ5EH46cAdn35NTk/sendMessage?chat_id=-774401073&text={msg}"
+            requests.get(url_link)
             orders_param = []
             for i in orders:
                 if "Delivered" not in i.status:

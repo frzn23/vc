@@ -94,20 +94,20 @@ def dc(request):
                 to_client =f"+91{phone}"
                 to_us = ['+919874368148','+917678117021','+918750850454']
                 
-                # account_sid = "AC956c0481a1259cf06686130dce2679df"
-                # auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
+                account_sid = "AC956c0481a1259cf06686130dce2679df"
+                auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
                 
-                # client = Client(account_sid, auth_token)
-                # message = client.messages.create(
-                #     to=to_client, 
-                #     from_="+17067603908",
-                #     body=msg_for_client)
+                client = Client(account_sid, auth_token)
+                message = client.messages.create(
+                    to=to_client, 
+                    from_="+17067603908",
+                    body=msg_for_client)
                     
                     
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
                 
 
-                # requests.get(url_link)
+                requests.get(url_link)
 
                 if not request.user.is_authenticated and request.user.last_name=='c':
 
@@ -207,17 +207,17 @@ def order_info(request, id):
                 to_client =f"+91{phone}"
                 to_us = ['+919874368148','+917678117021','+918750850454']
 
-                # account_sid = "AC956c0481a1259cf06686130dce2679df"
-                # auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
+                account_sid = "AC956c0481a1259cf06686130dce2679df"
+                auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
                 
-                # client = Client(account_sid, auth_token)
-                # message = client.messages.create(
-                #     to=to_client, 
-                #     from_="+17067603908",
-                #     body=msg_for_client)
-                    
+                client = Client(account_sid, auth_token)
+                message = client.messages.create(
+                    to=to_client, 
+                    from_="+17067603908",
+                    body=msg_for_client)
+
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
-                # requests.get(url_link)
+                requests.get(url_link)
 
 
 
@@ -300,17 +300,17 @@ def order_auth(request,id):
                 msg_us = msg_us.replace("&","And")
                 to_client =f"+91{phone}"
 
-                # account_sid = "AC956c0481a1259cf06686130dce2679df"
-                # auth_token  = "b168342293e80d3a0c7bfcf04f574ea5"
+                account_sid = "AC956c0481a1259cf06686130dce2679df"
+                auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
                 
-                # client = Client(account_sid, auth_token)
-                # message = client.messages.create(
-                #     to=to_client, 
-                #     from_="+17067603908",
-                #     body=msg_for_client)
+                client = Client(account_sid, auth_token)
+                message = client.messages.create(
+                    to=to_client, 
+                    from_="+17067603908",
+                    body=msg_for_client)
                     
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
-                # requests.get(url_link)
+                requests.get(url_link)
 
 
                 messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")

@@ -61,55 +61,71 @@ def status(request,id):
         timing = now.strftime("%d/%m/%Y %I:%M %p")
         new_timing = f"{orders.timing}, {timing}"
         Order.objects.filter(order_id=c_id).update(status=new_status, timing=new_timing)
+        try:
+            if update=="Order Picked":
+                weight = request.POST['weight']            
 
-        if update=="Order Picked":
-            weight = request.POST['weight']            
-
-            Order.objects.filter(order_id=id).update(weight=weight)
-
-
-            name = f"Name : {orders.name}"
-            order_name = orders.order_name
-            # print(order_name)
-            if order_name=="Wash & Fold":
-                total_price = float(weight)*50
-                l_price = float(weight)*40
-            if order_name=="Wash & Iron":
-                total_price = float(weight)*70
-                l_price = float(weight)*60
-            
-            try:
-                price = f"Total Price : Rs. {int(total_price)}"
-                Order.objects.filter(order_id=id).update(costumer_price=total_price+10, laundry_price=l_price)
-                make_pdf(name,order_name,total_price)
-            except Exception as e:
-                var_pass = True            
+                Order.objects.filter(order_id=id).update(weight=weight)
 
 
-            if orders.order_name == "Wash & Fold" or orders.order_name == "Wash & Iron":
+                name = f"Name : {orders.name}"
+                order_name = orders.order_name
+                # print(order_name)
+                if order_name=="Wash & Fold":
+                    total_price = float(weight)*50
+                    l_price = float(weight)*40
+                if order_name=="Wash & Iron":
+                    total_price = float(weight)*70
+                    l_price = float(weight)*60
+                
+                try:
+                    no = random.randint(100,100000)
+                    price = f"Total Price : Rs. {int(total_price)}"
+                    Order.objects.filter(order_id=id).update(costumer_price=total_price+10, laundry_price=l_price)
+                    make_pdf(name,order_name,total_price,no)
+                except Exception as e:
+                    var_pass = True            
 
-                msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Picked From Your Doorstep & Recieved at Laundry, It Will Be Delivered Within 20 Hours. Keep using hanzo.co.in"     
-            else:
-                msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Picked From Your Doorstep & Recieved at Laundry, It Will Be Delivered Within 54 Hours. Keep using hanzo.co.in"     
 
-            to_client =f"+91{orders.phone}"
+                if orders.order_name == "Wash & Fold" or orders.order_name == "Wash & Iron":
 
-    
-        if update=="In Laundry":
-            laundry_name = request.POST.get('laundry_name','')
-            Order.objects.filter(order_id=id).update(refer_code=laundry_name)
-
-
-
-
-        if update=="Delivered":
-            if orders.order_name == "Wash & Fold" or orders.order_name == "Wash & Iron":
-                msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Delivered At Your Doorstep Within 20 Hours. Thanks For Ordering at hanzo.co.in"     
-            else:
-                msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Delivered At Your Doorstep Within 54 Hours. Thanks For Ordering at hanzo.co.in"     
+                    msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Picked From Your Doorstep & Recieved at Laundry, It Will Be Delivered Within 20 Hours. Check Your Bill Here: hanzo.co.in/static/pdf/{no}.pdf."     
+                else:
+                    msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Picked From Your Doorstep & Recieved at Laundry, It Will Be Delivered Within 54 Hours. Keep using hanzo.co.in"     
 
 
         
+            if update=="In Laundry":
+                laundry_name = request.POST.get('laundry_name','')
+                Order.objects.filter(order_id=id).update(refer_code=laundry_name)
+                msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Recieved By Our Laundry Partner. We Will Make Sure They Clean It In Best Quality. Keep Using Hanzo."     
+
+
+
+
+            if update=="Delivered":
+                if orders.order_name == "Wash & Fold" or orders.order_name == "Wash & Iron":
+                    msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Delivered At Your Doorstep Within 20 Hours. Thanks For Ordering at Hanzo. Provide Us A Feedback Here: hanzo.co.in/panel"     
+                else:
+                    msg_for_client = f"Hello {orders.name}. Your Order Of - {orders.order_name} Has Been Delivered At Your Doorstep Within 54 Hours. Thanks For Ordering at Hanzo. Provide Us A Feedback Here: hanzo.co.in/panel"     
+
+            to_client =f"+91{orders.phone}"
+
+            account_sid = "AC956c0481a1259cf06686130dce2679df"
+            auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
+            
+            client = Client(account_sid, auth_token)
+            message = client.messages.create(
+                to=to_client, 
+                from_="+17067603908",
+                body=msg_for_client)
+            
+            messages.info(request,"Status Changed Succesfully! We are really grateful to have you at Hanzo")
+            return redirect('/delivery')
+        except Exception as e:
+            messages.warning(request,"Some Error Has Occured In The Server. Please Call Us <b><u><a href='tel:6290088206'> Immediately </a></b></u>")
+            return redirect('/delivery')
+
     return render(request, 'delivery/status.html',{'last_status':last_status,'orders':orders})
 
 
@@ -122,7 +138,9 @@ def comment(request,id):
         comment = request.POST['comment']
         orders = Order.objects.get(order_id=id)
         orders.comment = comment
-        orders.save()
+        orders.save()                
+        messages.info(request,"Status Changed Succesfully! We are really grateful to have you at Hanzo")
+        return redirect('/delivery')
     return render(request, 'delivery/comment.html',params)
 
 def login_del(request):
@@ -153,8 +171,7 @@ def logout_del(request):
     return redirect('/delivery/login')
 
 
-def make_pdf(n,s,p):
-    no = random.randint(100,100000)
+def make_pdf(n,s,p,no):
     # data which we are going to display as tables
     DATA = [
         [ "Name" , "Service", "Laundry Charge", "Delivery Charge" ],

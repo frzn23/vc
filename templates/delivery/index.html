@@ -23,18 +23,22 @@
 </center>
 <br><br>
 
-{% if request == True %}
+{% for message in messages %}
+
 <div style="width:80%;margin:auto;">
   
-  <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong>Status Changed</strong>
+  <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+    <strong>
+      {{message}}
+    </strong>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
 
 </div>
-{% endif %}
+{% endfor %}
+
 <section class="text-gray-600 body-font overflow-hidden">
   {% for i in order %}
     <div class="container px-5 py-24 mx-auto" style="border:2px solid black;" bis_skin_checked="1">
@@ -125,44 +129,6 @@
 
 <br><br><br><br>
 <br><br><br><br>
-
-{% for message in messages %}
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Task Completed</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <img src="{{message.tags}}" style='width:50%' class="rounded mx-auto d-block" alt="...">
-        {{message}}
-      </b>
-      </div>
-      
-    </div>
-  </div>
-</div>
-
-{% endfor %}
-
-<script>
-  function show_Modal(){
-    $('#myModal').modal('show');
-  }
-</script>
-
-{% if messages %}
-<script>
-show_Modal();
-</script>
-
-{% endif %}
-
-
 
 
 {% endblock body %}
