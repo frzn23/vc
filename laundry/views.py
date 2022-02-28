@@ -19,16 +19,14 @@ import requests
 def index(request):
     if request.user.is_authenticated and request.user.last_name!='c' and request.user.last_name!='delivery':
         my_code = request.user.last_name
-        if my_code != 'db' or my_code != '':
-            orders = Order.objects.filter(refer_code=my_code)
-            orders_param = []
-            for i in orders:
-                if "Delivered" not in i.status:
-                    orders_param.append(i)
-            params = {'order':orders_param, 'name':request.user.first_name}
-            return render(request, 'laundry/shop.html', params)
-        else:
-            return redirect('/')
+        orders = Order.objects.filter(refer_code=my_code)
+        orders_param = []
+        for i in orders:
+            if "Delivered" not in i.status:
+                orders_param.append(i)
+        params = {'order':orders_param, 'name':request.user.first_name}
+        return render(request, 'laundry/shop.html', params)
+
 
     else:
         return redirect('/laundry-panel/login')
@@ -107,7 +105,7 @@ def signin(request):
     laundry_list = ['hamd', 'shine', 'fine']
     if request.user.is_authenticated:
         laundry_exist = laundry_list.count(request.user.last_name)
-        if laundry_exist > 0:
+        if laundry_exist < 1:
             return redirect('/laundry-panel')
         else:
             return redirect('/')
@@ -119,7 +117,7 @@ def signin(request):
             login(request, user)
             laundry_exist = laundry_list.count(request.user.last_name)
 
-            if laundry_exist > 1:
+            if laundry_exist == 1:
                 return redirect('/laundry-panel')
             else:
                 return redirect('/')
