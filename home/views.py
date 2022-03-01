@@ -469,6 +469,13 @@ def review_sep(request, id):
     else:
         return redirect('/take_pass')
 
+
+def log_out(request):
+    logout(request)
+    return redirect('/take_pass')
+
+
+
 def take_review(request):
     if request.user.is_authenticated and request.user.last_name=='c':
 

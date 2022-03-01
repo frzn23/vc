@@ -22,5 +22,6 @@ urlpatterns = [
     path('my-orders', views.my_order),
     path('take-review', views.take_review),
     path('review/<int:id>', views.review_sep),
+    path('logoutc', views.log_out),
 
 ]

@@ -40,7 +40,7 @@ def more(request,id):
         if my_code != 'db' or my_code != '':
             orders = Order.objects.filter(refer_code=my_code)
             msg = f"Order with order Id - {order_id} Is Ready To Be Picked Please Reach As Soon As Possible."
-            url_link = f"https://api.telegram.org/bot5282886784:AAHTAX7RvbhewVLYI1lWQ5EH46cAdn35NTk/sendMessage?chat_id=-774401073&text={msg}"
+            url_link = f"https://api.telegram.org/bot5282886784:AAHTAX7RvbhewVLYI1lWQ5EH46cAdn35NTk/sendMessage?chat_id=-791553727&text={msg}"
             requests.get(url_link)
             orders_param = []
             for i in orders:
