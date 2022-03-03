@@ -50,11 +50,11 @@
       <input class="menu-btn" type="checkbox" id="menu-btn" />
       <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
       <ul class="menu" style="font-size:1.1rem;">
-          <li><a href="/order" class="link link-theme link-arrow">Orders</a></li>
+          <li><a href="/laundry-panel" class="link link-theme link-arrow">Orders</a></li>
           {% if user.is_authenticated %}
-          <li><a href="/take_pass" class="link link-theme link-arrow">Logout</a></li>
+          <li><a href="/laundry-panel" class="link link-theme link-arrow">Logout</a></li>
           {% else %}
-          <li><a href="/take_pass" class="link link-theme link-arrow">Login</a></li>
+          <li><a href="/laundry-panel" class="link link-theme link-arrow">Login</a></li>
           {% endif %}
       </ul>
   </header> 

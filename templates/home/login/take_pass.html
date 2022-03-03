@@ -60,11 +60,11 @@ Hanzo Costumer Login Page
       {% endif %}
             
         <div class="form-group">
-            <input type="tel" class="form-control" placeholder="Phone No." name="phone" value="{{phone}}" required="required">
+            <input type="tel" class="form-control" placeholder="Phone No." id="phone" name="phone" value="{{phone}}" required="required">
         </div>
         <br>
         <div class="form-group">
-            <input type="password" class="form-control" name="password" placeholder="Password" required="required">
+            <input type="password" class="form-control" name="password" id="passw" placeholder="Password" required="required">
         </div>
         <br>      
         <div class="form-group">
@@ -126,11 +126,16 @@ color:white;
     $('#myModal').modal('show');
   }
 
-  if(document.getElementById('phone').value==""){
-    document.getElementById('phone').value = localStorage.getItem("phone");
-  }
-    document.getElementById('passw').value = localStorage.getItem("passw");
 
+  window.onload = (event) => {
+
+    document.getElementById('phone').value = localStorage.getItem("phone");
+    document.getElementById('passw').value = localStorage.getItem("passw");
+    event.returnValue = true;
+  
+  
+  };
+  
 
 
 </script>
