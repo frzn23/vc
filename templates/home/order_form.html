@@ -195,24 +195,24 @@
                   <div class="modal-body">
               <div class="form-group">
                 <label for="username">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Email" >
+                <input type="email" class="form-control" name="email" placeholder="Email" required>
               </div>
 
-              <div class="form-group">
-                <label for="username">Password</label>
-                <input type="password" class="form-control" name="passw" id="passw" placeholder="Password" >
+
+              
+              <label for="password">Password</label>              
+              <div class="input-group mb-3">
+                <input type="password" class="form-control" name="passw" id="passw" placeholder="Create Password" minlength="3" required>
+                <div class="input-group-append">
+                  <span onclick="showPass()" id="show_pass_btn" class="input-group-text">Show</span>
+                </div>
               </div>
               
               <div class="form-group"  id="code" style="display:none;">
                 <label id="code-label">Laundry Code</label>
-                <input type="text" class="form-control" name="code" placeholder="Laundry Code" >
+                <input type="hidden" class="form-control" name="code" value="" placeholder="Laundry Code" >
               </div>
 
-              <div class="form-group">
-                <a href="#" id="refer-anchor" onclick="createInput()">
-                <label id="ask-refer"><u>Have A Referral Code?</u></label>
-                </a>
-              </div>
                     <button type="submit" class="btn btn-block btn-warning">Place Order</button>
                   </div>
                   <div class="modal-footer">
@@ -258,6 +258,20 @@
     document.getElementById('refer-anchor').setAttribute('onclick','createInput()');
 
   }
+
+  
+  function showPass(){
+    document.getElementById("passw").type="text";
+    document.getElementById('show_pass_btn').innerHTML="Hide";
+    document.getElementById('show_pass_btn').setAttribute('onclick','hidePass()');
+  }
+
+  function hidePass(){
+    document.getElementById("passw").type="password";
+    document.getElementById('show_pass_btn').innerHTML="Show";
+    document.getElementById('show_pass_btn').setAttribute('onclick','showPass()');
+  }
+
   </script>
 {% if messages %}
 <script>
@@ -295,6 +309,8 @@ if(localStorage.getItem("name")==null){
     localStorage.setItem("flat", flat);
     localStorage.setItem("floor", floor);
     localStorage.setItem("lmark", lmark);
+    localStorage.setItem("passw", passw);
+
 }
 
   event.returnValue = true;

@@ -59,16 +59,7 @@
 
         <p class="lead">
         <br>
-         <h3>YOU CAN CANCEL ORDER ANYTIME BEFORE PICKUP OR DURING WEIGHING</h3>
          
-
-         <br>
-         
-         <center>
-         <h2>
-            Fill The Given Details To Place Your Order :
-          </h2>
-          </center>
             
          <h4>
              We Assure You To Deliver Your Clothes Back To You Within 60 Hours
@@ -91,10 +82,14 @@
 
 
           </ul>
+          {% if user.is_authenticated %}
+            <br>
+          {% else %}
           <a href="/place-order-phone/3">
             <u> Go Back </u>
           </a>
-  
+          <br>
+          {% endif %}
 
         </div>
 
@@ -109,7 +104,6 @@
               <div class="form-group" style="width:90%;margin:auto;">
                 <input type="hidden" name="order_info" id="orders" value="">
                 <input type="hidden" name="order_price" id="price" value="">
-                <label for="exampleFormControlTextarea1">Address</label>
                 <textarea class="form-control mb-4" value="{{address}}" id="exampleFormControlTextarea1" rows="3">{{address}}</textarea>
               </div>
 
@@ -174,19 +168,30 @@
                   <div class="modal-body">
               <div class="form-group">
                 <label for="username">Email</label>
-                <input type="email" class="form-control" name="email" placeholder="Email" >
+                <input type="email" class="form-control" name="email" placeholder="Email" required>
               </div>
 
-              <div class="form-group">
+              {% comment %} <div class="form-group">
                 <label for="username">Password</label>
-                <input type="password" class="form-control" id="passw" name="passw" placeholder="Password" >
+                <input type="password" class="form-control" id="passw" name="passw" placeholder="Password" minlength="3" required>
+              </div> {% endcomment %}
+
+                            
+              <label for="password">Password</label>              
+              <div class="input-group mb-3">
+                <input type="password" class="form-control" id="passw" name="passw" placeholder="Password" minlength="3" required>
+                <div class="input-group-append">
+                  <span onclick="showPass()" id="show_pass_btn" class="input-group-text">Show</span>
+                </div>
               </div>
-              
+
 
               {% endif %}
 
-                    <button type="submit" class="btn btn-block btn-warning">Place Order</button>
+                    <button type="submit" style="width:90%;margin:auto;" class="btn btn-block btn-warning">Place Order</button>
                   </div>
+
+
                   <div class="modal-footer">
                   </div>
                 </div>
@@ -198,11 +203,9 @@
         </div>
       </div>
 
-
-
-
 </div>
 
+<br><br><br>
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -213,6 +216,20 @@
   function show_Modal(){
     $('#myModal').modal('show');
   }
+
+  function showPass(){
+    document.getElementById("passw").type="text";
+    document.getElementById('show_pass_btn').innerHTML="Hide";
+    document.getElementById('show_pass_btn').setAttribute('onclick','hidePass()');
+  }
+
+  function hidePass(){
+    document.getElementById("passw").type="password";
+    document.getElementById('show_pass_btn').innerHTML="Show";
+    document.getElementById('show_pass_btn').setAttribute('onclick','showPass()');
+  }
+
+
 </script>
 
 {% if messages %}
@@ -327,6 +344,8 @@ if(localStorage.getItem("name")==null){
     localStorage.setItem("flat", flat);
     localStorage.setItem("floor", floor);
     localStorage.setItem("lmark", lmark);
+    localStorage.setItem("passw", passw);
+
 }
 
   event.returnValue = true;

@@ -43,16 +43,15 @@
               </label>
 
                 <select class="form-control" id="exampleFormControlSelect1" name="laundry_name">
-                    <option value="hamd"> Al Hamd </option>
-                    <option value="bilal"> Bilal </option>
-                    <option value="shine"> Shining Laundry </option>
+                    <option value="bilal"> Bilal's Laundry </option>
+                    <option value="fine"> Finewash Laundry </option>
 
                 </select>
                 {% endif %}
 
               {% if last_status == "Order Placed" %}
               
-              {% if orders.order_name != "Wash & Iron" or orders.order_name != "Wash & Fold" %}
+              {% if orders.order_name == "Wash & Iron" or orders.order_name == "Wash & Fold" %}
               <br>
               <input type="text" name="weight" required class="form-control" id="exampleFormControlInput1" placeholder="ADD WEIGHT">
               {% endif %}

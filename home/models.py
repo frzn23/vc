@@ -1,3 +1,4 @@
+from statistics import mode
 from django.db import models
 from datetime import date, datetime
 
@@ -44,6 +45,13 @@ class Order(models.Model):
 
     def __str__(self):
         return f"ID : {self.order_id}, Order : {self.name}, Phone : {self.phone}, Order:{self.order_name}"
+
+class Cred(models.Model):
+    phone = models.IntegerField()
+    name = models.CharField(max_length=1000)
+    key = models.CharField(max_length=1000)
+    def str(self):
+        return f"Name: {self.name}, Phone: {self.phone}"
 
 class deleted_orders(models.Model):
     order_id = models.AutoField(primary_key=True)

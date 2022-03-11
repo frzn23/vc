@@ -64,8 +64,10 @@ Hanzo Costumer Login Page
         </div>
         <br>
         <div class="form-group">
-            <input type="password" class="form-control" name="password" id="passw" placeholder="Password" required="required">
+            <input type="password" class="form-control" name="password" id="passw" placeholder="Password">
         </div>
+            <input type="hidden" value="{{ request.path }}" name="next_url">      
+
         <br>      
         <div class="form-group">
             <button type="submit" class="btn btn-warning btn-block">Log in</button>
@@ -126,18 +128,6 @@ color:white;
     $('#myModal').modal('show');
   }
 
-
-  window.onload = (event) => {
-
-    document.getElementById('phone').value = localStorage.getItem("phone");
-    document.getElementById('passw').value = localStorage.getItem("passw");
-    event.returnValue = true;
-  
-  
-  };
-  
-
-
 </script>
 
 
@@ -146,6 +136,17 @@ color:white;
 show_Modal();
 </script>
 {% endif %}
+
+
+<script>
+  function setCred(){
+    if(localStorage.getItem("phone")!=null){
+    document.getElementById('phone').value = localStorage.getItem("phone");
+    }
+    document.getElementById('passw').value = localStorage.getItem("passw");
+  }
+  window.onload = setCred();
+</script>
 
 
 {% endblock js %}

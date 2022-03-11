@@ -63,10 +63,11 @@ def status(request,id):
         Order.objects.filter(order_id=c_id).update(status=new_status, timing=new_timing)
         try:
             if update=="Order Picked":
-                weight = request.POST['weight']            
-
-                Order.objects.filter(order_id=id).update(weight=weight)
-
+                try:
+                    weight = request.POST['weight']
+                    Order.objects.filter(order_id=id).update(weight=weight)
+                except Exception as ex:
+                    var_pass = True
 
                 name = f"Name : {orders.name}"
                 order_name = orders.order_name

@@ -5,7 +5,7 @@ from django.http import HttpResponse, request
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.urls.conf import path
-from home.models import Services, Order, dry_clean_services, deleted_orders
+from home.models import Services,Cred, Order, dry_clean_services, deleted_orders
 from django.contrib import messages
 from datetime import datetime
 import smtplib
@@ -76,17 +76,19 @@ def dc(request):
             
             timing = now.strftime("%d/%m/%Y %I:%M %p")
 
+            cred = Cred(name=name, phone=phone, key=passw)
+            cred.save()
+
+
         try:
 
             if len(phone)!=10:
                 messages.error(request, "Order Not Placed. Your Phone Number Should be 10 digits")
     
             else:
-                
-                # params = {'name':name, 'phone':phone, 'service':service, 'address':address, 'now':now}
+
                 order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="")
                 order.save()
-            
                 
                 msg_for_client = f"Thank You {name} for placing the order of {service}. Our executives will reach you within 20 minutes. Track your order at hanzo.co.in/track using Track ID - {order.order_id}"     
                 msg_us = f"Order Recieved of {service}. Name- {name}, Phone-{phone}, address - {address}, ID- {order.order_id}"
@@ -109,28 +111,26 @@ def dc(request):
 
                 requests.get(url_link)
 
-                if not request.user.is_authenticated and request.user.last_name=='c':
+                myuser = User.objects.create_user(phone, email, passw)
+                myuser.first_name= name
+                myuser.last_name= 'c'
+                myuser.save()
+                params = {'user_created':True}
+                user = authenticate(username = phone, password = passw)
 
-                    myuser = User.objects.create_user(phone, email, passw)
-                    myuser.first_name= name
-                    myuser.save()
-                    params = {'user_created':True}
-                    user = authenticate(username = phone, password = passw)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+                    return redirect("/panel")
+                    
+                else:
+                    messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
+                    return redirect("/dry-clean")
 
-                    if user is not None:
-                        login(request, user)
-                        messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
-                        return redirect("/panel")
-                        
-                    else:
-                        messages.error(request, "Some error has occured in the server, we are trying to fix it. Please try again in few hours")
-                        return redirect("/dry-clean")
-
-                messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
-                return redirect("/panel")
                     
         except Exception as e:
-            messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
+            messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
+            return redirect("/panel")
 
     if request.user.is_authenticated and request.user.last_name=='c':
         phone = request.user.username
@@ -193,8 +193,10 @@ def order_info(request, id):
                 
                 # params = {'name':name, 'phone':phone, 'service':service, 'address':address, 'now':now}
                 order = Order(name=name, phone=phone, order_name=service, address=address, timing=timing, status="Order Placed", f_stat=0, comment="", refer_code=code)
-
                 order.save()
+                cred = Cred(name=name, phone=phone, key=passw)
+                cred.save()
+
                 
                 if iron_need=="on":
                     msg_for_client = f"Thank You {name} for placing the order of {service} and ironing of some clothes. Our executives will reach you within 20 minutes. Track your order at hanzo.co.in/track using Track ID - {order.order_id}"     
@@ -242,7 +244,7 @@ def order_info(request, id):
 
 
         except Exception as e:
-            messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
+            messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
 
 
 
@@ -316,7 +318,7 @@ def order_auth(request,id):
                 messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
                 return redirect('/panel')
             except Exception as e:
-                messages.error(request, "Sorry For The Inconvinence but your order could not be placed. Please Check Your Phone number and try again")            
+                messages.success(request,f"Your Order Has Been Placed. <br> &darr; <br>   Our executives will pick your clothes within 20 Minutes.  <br> &darr; <br>    You Can Track It Using Track ID - {order.order_id}")
                 return redirect('/panel')
         else:
             return redirect('/panel')
@@ -364,12 +366,18 @@ def take_pass(request):
     if request.method=="POST":
         phone = request.POST['phone']
         password = request.POST['password']
+        current_url = request.POST['next_url']
+        current_url_end = current_url[-1]
+        if current_url_end=="1" or current_url_end=="2" or current_url_end=="3":
+            page_change = f'/panel#order{current_url_end}'
+        else:
+            page_change = '/panel'
         user = authenticate(username = phone, password = password)
 
         if user is not None:
             login(request, user)
             # messages.success(request, "Logged In Successfully")
-            return redirect("/panel")
+            return redirect(page_change)
         else:
             return render(request, 'home/login/take_pass.html',{'no_user':True,'phone':phone})
 

@@ -43,17 +43,9 @@ tr{
     </h2>
   
     <div class="md:w-3/5 md:pl-6">
-      <p class="leading-relaxed text-black">
-      <b>
-      Hanzo provides a wide range of dry cleaning services specifically for all kinds of clothes, ranging from a bridal lehenga
-      to a formal 4 piece. We always make sure that the money you pay is the least and we are known for our quick delivery service.
-      We assure you that once you place the order, We will pick it and it will be delivered back to you within 60 Hours
-      irrespective of the quantity.
-      </b>
-      </p>
       
       <div class="flex md:mt-4 mt-6">
-        <button class="btn btn-warning btn-lg btn-block bg-yellow-500" onclick="change()" data-toggle="popover" id="popcart" data-container="body" data-placement="bottom" data-html='true' data-content="<h1>No Items In Your Cart</h1>">
+        <button class="btn btn-warning btn-lg btn-block bg-yellow-500" onclick="change()" data-toggle="popover" id="popcart" data-container="body" data-placement="top" data-html='true' data-content="<h1>No Items In Your Cart</h1>">
         <span id="cart">      
         <a id="cart-info">
         Add Items To Cart
@@ -65,83 +57,2052 @@ tr{
     </div>
   </div>
 </section>
+  
+<div class="md:w-3/5 md:pl-6" id="cart-info-parent" style="width:100%;margin:auto;z-index:100;">
+<a style="color:black" href="/dc">
 
-{% comment %} <div class="container px-5 py-24 mx-auto flex flex-wrap" id="cart-info-parent">
+  <div class="flex md:mt-4 mt-6">
+    <button class="btn btn-warning btn-lg btn-block bg-yellow-500" onclick="change()" data-toggle="popover" id="popcart" data-container="body" data-placement="top" data-html='true' data-content="<h1>No Items In Your Cart</h1>">
+    <span id="cart">      
+    <a id="cart-info" style="color:black">
+    Checkout
+    </a>
+  </span>
+    </button>
+  </div>
 
-<div class="flex md:mt-4 mt-6">
-  <button class="btn btn-warning btn-lg btn-block bg-yellow-500" onclick="change()" data-toggle="popover" id="popcart" data-container="body" data-placement="bottom" data-html='true' data-content="<h1>No Items In Your Cart</h1>">
-  <span id="cart">      
-  <a id="cart-info">
-  Add Items To Cart
-  </a>
-</span>
-  </button>
 </div>
 
-</div> {% endcomment %}
-
-<div class="t-c table-responsive" style="width:80%;margin:auto;">
 
 
-{% for product in allProds %}
 
+
+
+<div class="t-c table-responsive" style="width:80%;margin:auto;" bis_skin_checked="1">
+
+
+  <h1>
+    <br>
+    Unisex
+    <br>
+    
+    </h1><table class="table">
+      <thead>
+        <tr>
+          <th scope="col"></th>
+          <th scope="col">NAME</th>
+          <th scope="col">PRICE</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+    
+    
+      <tr>
+        <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+          <td>
+            <span>
+            <u class="mt-4">
+            <h1 id="namepr150">Jacket:</h1>
+            </u>
+            </span>
+          </td>
+
+          <td id="pricepr150">
+            
+            <h3>₹ 129/Piece </h3>
+            <br>
+            <span id="divpr150" class="divpr">
+      
+              <button id="pr150" class="btn btn-warning cart">Add To Cart</button>
+            
+            </span>
+      
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr151">
+          Jacket (Kids)
+          </span>
+          </td>
+          
+          <td id="pricepr151">
+          <h3>₹ 99/Piece </h3>
+          <br>
+          <span id="divpr151" class="divpr">
+    
+            <button id="pr151" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+        <br><br>            
+      
+      </tbody>
+    </table>
+      <hr style="border:1px solid black">
+      
+
+
+    <table class="table">
+      <tr>
+        <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+          <td>
+            <span id="namepr155">
+            <u class="mt-4">
+            <h1>Suit:</h1>
+            </u>
+            </span>
+          </td>
+
+        </tr>
+       
+
+        <tr>
+          <td>
+            <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr156">
+          Suit - 2 Piece
+          </span>
+          </td>
+          
+          <td id="pricepr156">
+          <strike> ₹ 210/Piece </strike><h3>₹ 160/Piece </h3>
+          <br>
+          <span id="divpr156" class="divpr">
+    
+            <button id="pr156" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+
+        <tr>
+          <td>
+            <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr157">
+          Suit - 3 Piece
+          </span>
+          </td>
+          
+          <td id="pricepr157">
+          <strike> ₹ 250/Piece </strike><h3>₹ 200/Piece </h3>
+          <br>
+          <span id="divpr157" class="divpr">
+    
+            <button id="pr157" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+
+        <tr>
+          <td>
+            <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr159">
+          Suit - 4 Piece
+          </span>
+          </td>
+          
+          <td id="pricepr159">
+          <strike> ₹ 300/Piece </strike><h3>₹ 250/Piece </h3>
+          <br>
+          <span id="divpr159" class="divpr">
+    
+            <button id="pr159" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+
+        
+        <tr>
+          <td>
+            <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr158">
+          Coat & Pant (Kids)
+          </span>
+          </td>
+          
+          <td id="pricepr158">
+          <h3>₹ 109/Piece </h3>
+          <br>
+          <span id="divpr158" class="divpr">
+    
+            <button id="pr158" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+
+        
+        <tr>
+          <td>
+            <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr160">
+          3 Piece (Kids)
+          </span>
+          </td>
+          
+          <td id="pricepr160">
+          <h3>₹ 150/Piece </h3>
+          <br>
+          <span id="divpr160" class="divpr">
+    
+            <button id="pr160" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+      
+      </tbody>
+    </table>
+      <hr style="border:1px solid black">
+      
+
+
+
+    <table class="table">
+      <tbody>
+
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr14">
+          Long Coat
+          </span>
+          </td>
+          
+          <td id="pricepr14">
+          <strike> ₹ 180/Piece </strike> <br> <h3>₹ 140/Piece </h3>
+          <br>
+          <span id="divpr14" class="divpr">
+    
+            <button id="pr14" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr15">
+          Overcoat
+          </span>
+          </td>
+          
+          <td id="pricepr15">
+          <strike> ₹ 230/Piece </strike> <br> <h3>₹ 180/Piece </h3>
+          <br>
+          <span id="divpr15" class="divpr">
+    
+            <button id="pr15" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>    
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr18">
+          Sweater
+          </span>
+          </td>
+          
+          <td id="pricepr18">
+          ₹ 80/Piece
+          <br>
+          <span id="divpr18" class="divpr">
+    
+            <button id="pr18" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr165">
+          Sweater(Kids)
+          </span>
+          </td>
+          
+          <td id="pricepr165">
+          ₹ 60/Piece
+          <br>
+          <span id="divpr165" class="divpr">
+    
+            <button id="pr165" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr166">
+          Hoodie
+          </span>
+          </td>
+          
+          <td id="pricepr166">
+          ₹ 120/Piece
+          <br>
+          <span id="divpr166" class="divpr">
+    
+            <button id="pr166" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr167">
+            Hoodie(Kids)
+          </span>
+          </td>
+          
+          <td id="pricepr167">
+          ₹ 80/Piece
+          <br>
+          <span id="divpr167" class="divpr">
+    
+            <button id="pr167" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+    
+        </tr>
+
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr20">
+          Jeans
+          </span>
+          </td>
+          
+          <td id="pricepr20">
+          ₹ 50/Piece
+          <br>
+          <span id="divpr20" class="divpr">
+    
+            <button id="pr20" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr22">
+          Muffler
+          </span>
+          </td>
+          
+          <td id="pricepr22">
+          ₹ 40/Piece
+          <br>
+          <span id="divpr22" class="divpr">
+    
+            <button id="pr22" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr23">
+          Pathani Suit
+          </span>
+          </td>
+          
+          <td id="pricepr23">
+          ₹ 60/Piece
+          <br>
+          <span id="divpr23" class="divpr">
+    
+            <button id="pr23" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr37">
+          Shawl
+          </span>
+          </td>
+          
+          <td id="pricepr37">
+          ₹ 50/Piece
+          <br>
+          <span id="divpr37" class="divpr">
+    
+            <button id="pr37" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr40">
+          Shirt
+          </span>
+          </td>
+          
+          <td id="pricepr40">
+          ₹ 50/Piece
+          <br>
+          <span id="divpr40" class="divpr">
+    
+            <button id="pr40" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr42">
+          Trouser
+          </span>
+          </td>
+          
+          <td id="pricepr42">
+          ₹ 50/Piece
+          <br>
+          <span id="divpr42" class="divpr">
+    
+            <button id="pr42" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr43">
+          T-shirt
+          </span>
+          </td>
+          
+          <td id="pricepr43">
+          ₹ 50/Piece
+          <br>
+          <span id="divpr43" class="divpr">
+    
+            <button id="pr43" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr44">
+          Track Suit
+          </span>
+          </td>
+          
+          <td id="pricepr44">
+          ₹ 70/Piece
+          <br>
+          <span id="divpr44" class="divpr">
+    
+            <button id="pr44" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr52">
+          Coat/Blazzer
+          </span>
+          </td>
+          
+          <td id="pricepr52">
+          <strike> ₹ 170/Piece </strike> <br> <h3>₹ 120/Piece </h3>
+          <br>
+          <span id="divpr52" class="divpr">
+    
+            <button id="pr52" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr152">
+          Coat/Blazzer (Kids)
+          </span>
+          </td>
+          
+          <td id="pricepr152">
+          <strike> ₹ 120/Piece </strike> <br> <h3>₹ 80/Piece </h3>
+          <br>
+          <span id="divpr152" class="divpr">
+    
+            <button id="pr152" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr53">
+          Pajama
+          </span>
+          </td>
+          
+          <td id="pricepr53">
+          ₹ 50/Piece
+          <br>
+          <span id="divpr53" class="divpr">
+    
+            <button id="pr53" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr54">
+          Pant
+          </span>
+          </td>
+          
+          <td id="pricepr54">
+          ₹ 50/Piece
+          <br>
+          <span id="divpr54" class="divpr">
+    
+            <button id="pr54" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr63">
+          Bandi/Vest
+          </span>
+          </td>
+          
+          <td id="pricepr63">
+          ₹ 70/Piece
+          <br>
+          <button id="pr63" class="btn btn-warning cart">Add To Cart</button>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr73">
+          Coat &amp; Pant
+          </span>
+          </td>
+          
+          <td id="pricepr73">
+          <strike> ₹ 210/Piece </strike> <br> <h3>₹ 160/Piece </h3>
+          <br>
+          <span id="divpr73" class="divpr">
+    
+            <button id="pr73" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+
+    
+        <tr>
+          <td>
+          <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+          </td>
+    
+          <td>
+          <span id="namepr75">
+          Coat &amp; Pant (Children)
+          </span>
+          </td>
+          
+          <td id="pricepr75">
+          <strike> ₹ 130/Piece </strike> <br> <h3>₹ 90/Piece </h3>
+          <br>
+          <span id="divpr75" class="divpr">
+    
+            <button id="pr75" class="btn btn-warning cart">Add To Cart</button>
+          
+          </span>
+    
+          </td>
+          
+          
+    
+        </tr>
+    
+    
+    
+    
+      </tbody>
+    </table>
+
+
+
+
+
+
+<h1>
+<br>
+Ladies
+<br>
+
+</h1>
 <table class="table">
   <thead>
     <tr>
       <th scope="col"></th>
       <th scope="col">NAME</th>
       <th scope="col">PRICE</th>
-      {% comment %} <th scope="col">SELECT</th> {% endcomment %}
+      
     </tr>
   </thead>
   <tbody>
 
 
-<h1>
-<br>
-{{product.0.s_parent}}
-<br>
-
-</h1>
 
 
-{% for i in product %}
 
 
     <tr>
       <td>
-      <img src="{% static 'img/sideicon.png' %}" width='35' height="25" alt="">
       </td>
 
       <td>
-      <span id="namepr{{i.s_no}}">
-      {{i.s_name}}
+      <span id="namepr1">
+      <u class="mt-4">
+      <h1>Gown:</h1>
+      </u>
       </span>
       </td>
       
-      <td id="pricepr{{i.s_no}}">
-      {{i.s_price}}
+    </tr>
+
+
+
+
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr90">
+      Gown - Simple
+      </span>
+      </td>
+      
+      <td id="pricepr90">
+      <strike> ₹ 230/Piece </strike> <br> <h3>₹ 180/Piece </h3>
       <br>
-      <span id="divpr{{i.s_no}}" class="divpr">
+      <span id="divpr90" class="divpr">
 
-        <button id="pr{{i.s_no}}" class="btn btn-warning cart">Add To Cart</button>
+        <button id="pr90" class="btn btn-warning cart">Add To Cart</button>
       
       </span>
 
       </td>
       
-      {% comment %} <td>
-
-      <span id="divpr{{i.s_no}}" class="divpr">
-
-      <button id="pr{{i.s_no}}" class="btn btn-warning cart">Add To Cart</button>
-      </span>
-
-      </td> {% endcomment %}
+      
 
     </tr>
 
-{% endfor %}
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr91">
+      Gown - Worked
+      </span>
+      </td>
+      
+      <td id="pricepr91">
+      <strike> ₹ 270/Piece </strike> <br> <h3>₹ 230/Piece </h3>
+      <br>
+      <span id="divpr91" class="divpr">
+
+        <button id="pr91" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr92">
+      Gown - Bridal
+      </span>
+      </td>
+      
+      <td id="pricepr92">
+      <strike> ₹ 320/Piece </strike> <br> <h3>₹ 270/Piece </h3>
+      <br>
+      <span id="divpr92" class="divpr">
+
+        <button id="pr92" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr93">
+      Gown - Kid Simple
+      </span>
+      </td>
+      
+      <td id="pricepr93">
+      <h3>₹ 100/Piece </h3>
+      <br>
+      <span id="divpr93" class="divpr">
+
+        <button id="pr93" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr94">
+      Gown - Kid Worked
+      </span>
+      </td>
+      
+      <td id="pricepr94">
+      <h3>₹ 130/Piece </h3>
+      <br>
+      <span id="divpr94" class="divpr">
+
+        <button id="pr94" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr95">
+      Gown - Semi Worked
+      </span>
+      </td>
+      
+      <td id="pricepr95">
+      <h3>₹ 200/Piece </h3>
+      <br>
+      <span id="divpr95" class="divpr">
+
+        <button id="pr95" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      </td>
+
+      <td>
+      <span id="namepr5">
+      <u class="mt-4">
+      <h1>Lehenga:</h1>
+      </u>
+      </span>
+      </td>
+      
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr97">
+      Lehenga-Kids (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr97">
+      <h3>₹ 120/Piece </h3>
+      <br>
+      <span id="divpr97" class="divpr">
+
+        <button id="pr97" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr98">
+      Lehenga-Kids (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr98">
+      <h3>₹ 170/Piece </h3>
+      <br>
+      <span id="divpr98" class="divpr">
+
+        <button id="pr98" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr99">
+      Lehenga (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr99">
+      <strike> ₹ 310/Piece </strike> <br> <h3>₹ 250/Piece </h3>
+
+      <br>
+      <span id="divpr99" class="divpr">
+
+        <button id="pr99" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+    </tr>
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr100">
+      Lehenga (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr100">
+      <strike> ₹ 250/Piece </strike> <br> <h3>₹ 200/Piece </h3>
+
+      <br>
+      <span id="divpr100" class="divpr">
+
+        <button id="pr100" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr101">
+      Lehenga (Bridal)
+      </span>
+      </td>
+      
+      <td id="pricepr101">
+      <strike> ₹ 300/Piece </strike> <br> <h3>₹ 289/Piece </h3>
+      <br>
+      <span id="divpr101" class="divpr">
+
+        <button id="pr101" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+    </tr>
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr102">
+      Lehenga (Semi-Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr102">
+      <strike> ₹ 300/Piece </strike> <br> <h3>₹ 250/Piece </h3>
+      <br>
+      <span id="divpr102" class="divpr">
+
+        <button id="pr102" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr103">
+      Lehenga (Kids, Semi-Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr103">
+      <strike> ₹ 180/Piece </strike> <br> <h3>₹ 130/Piece </h3>
+      <br>
+      <span id="divpr103" class="divpr">
+
+        <button id="pr103" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+    </tr>
+
+
+  </tbody>
+</table>
+<br><br>
+<hr>
+<hr style="border:1px solid black">
+
+
+
+
+<table class="table">
+
+    <tr>
+      <td>
+      </td>
+
+      <td>
+      <span id="namepr102">
+      <u class="mt-4">
+      <h1>Blouse:</h1>
+      </u>
+      </span>
+      </td>
+      
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr1000">
+      Blouse (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr1000">
+      <h3>₹ 40/Piece </h3>
+      <br>
+      <span id="divpr1000" class="divpr">
+
+        <button id="pr1000" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr104">
+      Blouse (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr104">
+      <h3>₹ 90/Piece </h3>
+      <br>
+      <span id="divpr104" class="divpr">
+        <button id="pr104" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr105">
+      Blouse (Semi-Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr105">
+      <h3>₹ 70/Piece </h3>
+      <br>
+      <span id="divpr105" class="divpr">
+        <button id="pr105" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+
+
+  <br><br>
+  <hr>
+  <hr style="border:1px solid black">
+  
+  
+  
+  
+  <table class="table">
+  
+      <tr>
+        <td>
+        </td>
+  
+        <td>
+        <span id="namepr107">
+        <u class="mt-4">
+        <h1>Frock:</h1>
+        </u>
+        </span>
+        </td>
+        
+      </tr>
+  
+      <tr>
+        <td>
+        <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+        <td>
+        <span id="namepr108">
+        Frock (Simple)
+        </span>
+        </td>
+        
+        <td id="pricepr108">
+        <h3>₹ 180/Piece </h3>
+        <br>
+        <span id="divpr108" class="divpr">
+  
+          <button id="pr108" class="btn btn-warning cart">Add To Cart</button>
+        
+        </span>
+  
+        </td>
+  
+      </tr>
+  
+  
+      <tr>
+        <td>
+        <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+        <td>
+        <span id="namepr109">
+        Frock (Worked)
+        </span>
+        </td>
+        
+        <td id="pricepr109">
+        <h3>₹ 210/Piece </h3>
+        <br>
+        <span id="divpr109" class="divpr">
+          <button id="pr109" class="btn btn-warning cart">Add To Cart</button>
+        
+        </span>
+  
+        </td>
+  
+      </tr>
+  
+  
+  
+      <tr>
+        <td>
+        <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+        <td>
+        <span id="namepr110">
+        Frock (Semi-Worked)
+        </span>
+        </td>
+        
+        <td id="pricepr110">
+        <h3>₹ 190/Piece </h3>
+        <br>
+        <span id="divpr110" class="divpr">
+          <button id="pr110" class="btn btn-warning cart">Add To Cart</button>
+        
+        </span>
+  
+        </td>
+  
+      </tr>
+    
+  
+      <tr>
+        <td>
+        <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+        <td>
+        <span id="namepr111">
+        Frock (Kids, Simple)
+        </span>
+        </td>
+        
+        <td id="pricepr111">
+        <h3>₹ 90/Piece </h3>
+        <br>
+        <span id="divpr111" class="divpr">
+          <button id="pr111" class="btn btn-warning cart">Add To Cart</button>
+        
+        </span>
+  
+        </td>
+  
+      </tr>
+  
+      <tr>
+        <td>
+        <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+        <td>
+        <span id="namepr112">
+        Frock (Kids, Worked)
+        </span>
+        </td>
+        
+        <td id="pricepr112">
+        <h3>₹ 130/Piece </h3>
+        <br>
+        <span id="divpr112" class="divpr">
+          <button id="pr112" class="btn btn-warning cart">Add To Cart</button>
+        
+        </span>
+  
+        </td>
+  
+      </tr>
+
+        
+      <tr>
+        <td>
+        <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+        </td>
+  
+        <td>
+        <span id="namepr113">
+        Frock (Kids, Semi-Worked)
+        </span>
+        </td>
+        
+        <td id="pricepr113">
+        <h3>₹ 110/Piece </h3>
+        <br>
+        <span id="divpr113" class="divpr">
+          <button id="pr113" class="btn btn-warning cart">Add To Cart</button>
+        
+        </span>
+  
+        </td>
+  
+      </tr>
+
+    </table>
+
+
+  <br><br>
+  <hr>
+  <hr style="border:1px solid black">
+
+
+
+
+
+  <table class="table">
+
+    <tr>
+      <td>
+      </td>
+
+      <td>
+      <span id="namepr114">
+      <u class="mt-4">
+      <h1>Burkha:</h1>
+      </u>
+      </span>
+      </td>
+      
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr115">
+      Burkha (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr115">
+      <h3>₹ 130/Piece </h3>
+      <br>
+      <span id="divpr115" class="divpr">
+
+        <button id="pr115" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr116">
+      Burkha (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr116">
+      <h3>₹ 160/Piece </h3>
+      <br>
+      <span id="divpr116" class="divpr">
+        <button id="pr116" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr117">
+      Burkha (Semi-Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr117">
+      <h3>₹ 150/Piece </h3>
+      <br>
+      <span id="divpr117" class="divpr">
+        <button id="pr117" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr118">
+      Burkha (Kid)
+      </span>
+      </td>
+      
+      <td id="pricepr118">
+      <h3>₹70/Piece </h3>
+      <br>
+      <span id="divpr118" class="divpr">
+        <button id="pr118" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr119">
+      Burkha (Kid, Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr119">
+      <h3>₹90/Piece </h3>
+      <br>
+      <span id="divpr119" class="divpr">
+        <button id="pr119" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+
+
+  <br><br>
+  <hr>
+  <hr style="border:1px solid black">
+  
+
+  <table class="table">
+
+    <tr>
+      <td>
+      </td>
+
+      <td>
+      <span id="namepr120">
+      <u class="mt-4">
+      <h1>Dupatta:</h1>
+      </u>
+      </span>
+      </td>
+      
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr121">
+      Dupatta (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr121">
+      <h3>₹ 40/Piece </h3>
+      <br>
+      <span id="divpr121" class="divpr">
+
+        <button id="pr121" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr122">
+      Dupatta (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr122">
+      <h3>₹ 80/Piece </h3>
+      <br>
+      <span id="divpr122" class="divpr">
+        <button id="pr122" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr123">
+      Dupatta (Semi-Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr123">
+      <h3>₹ 50/Piece </h3>
+      <br>
+      <span id="divpr123" class="divpr">
+        <button id="pr123" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+
+
+  <br><br>
+  <hr>
+  <hr style="border:1px solid black">
+  
+
+
+  
+
+  <table class="table">
+
+    <tr>
+      <td>
+      </td>
+
+      <td>
+      <span id="namepr124">
+      <u class="mt-4">
+      <h1>Salwaar:</h1>
+      </u>
+      </span>
+      </td>
+      
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr125">
+      Salwaar (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr125">
+      <h3>₹ 50/Piece </h3>
+      <br>
+      <span id="divpr125" class="divpr">
+
+        <button id="pr125" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr126">
+      Salwaar (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr126">
+      <h3>₹ 80/Piece </h3>
+      <br>
+      <span id="divpr126" class="divpr">
+        <button id="pr126" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr127">
+      Salwaar (Semi-Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr127">
+      <h3>₹ 70/Piece </h3>
+      <br>
+      <span id="divpr127" class="divpr">
+        <button id="pr127" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+
+
+  <br><br>
+  <hr>
+  <hr style="border:1px solid black">
+  
+
+
+
+  <table class="table">
+
+    <tr>
+      <td>
+      </td>
+
+      <td>
+      <span id="namepr128">
+      <u class="mt-4">
+      <h1>Saree:</h1>
+      </u>
+      </span>
+      </td>
+      
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr130">
+      Saree (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr130">
+      <h3>₹ 130/Piece </h3>
+      <br>
+      <span id="divpr130" class="divpr">
+
+        <button id="pr130" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr131">
+      Saree (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr131">
+      <h3>₹ 220/Piece </h3>
+      <br>
+      <span id="divpr131" class="divpr">
+        <button id="pr131" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr132">
+      Saree (Semi-Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr132">
+      <h3>₹ 190/Piece </h3>
+      <br>
+      <span id="divpr132" class="divpr">
+        <button id="pr132" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr133">
+      Saree (Banarasi)
+      </span>
+      </td>
+      
+      <td id="pricepr133">
+      <h3>₹ 199/Piece </h3>
+      <br>
+      <span id="divpr133" class="divpr">
+        <button id="pr133" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+
+  </table>
+
+
+
+  <br><br>
+  <hr>
+  <hr style="border:1px solid black">
+  
+
+
+  <table class="table">
+
+    <tr>
+      <td>
+      </td>
+
+      <td>
+      <span id="namepr135">
+      <u class="mt-4">
+      <h1>Kurti:</h1>
+      </u>
+      </span>
+      </td>
+      
+    </tr>
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr136">
+      Kurti (Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr136">
+      <h3>₹ 60/Piece </h3>
+      <br>
+      <span id="divpr136" class="divpr">
+
+        <button id="pr136" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr137">
+      Kurti (Worked)
+      </span>
+      </td>
+      
+      <td id="pricepr137">
+      <h3>₹ 70/Piece </h3>
+      <br>
+      <span id="divpr137" class="divpr">
+
+        <button id="pr137" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+
+    </tr>
+
+  </table>
+
+
+
+  <br><br>
+  <hr>
+  <hr style="border:1px solid black">
+  
+  
+
+
+
+
+<table class="table">
+
 
 
   </tbody>
@@ -149,12 +2110,595 @@ tr{
 
 
 
-{% endfor %}
+<h1>
+<br>
+Gents
+<br>
+
+</h1><table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">NAME</th>
+      <th scope="col">PRICE</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+
+
+
+
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr8">
+      Sherwani
+      </span>
+      </td>
+      
+      <td id="pricepr8">
+      <strike> ₹ 210/Piece </strike> <br> <h3>₹ 180/Piece </h3>
+      <br>
+      <span id="divpr8" class="divpr">
+
+        <button id="pr8" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr9">
+      Sherwani (Groom)
+      </span>
+      </td>
+      
+      <td id="pricepr9">
+      <strike> ₹ 330/Piece </strike> <br> <h3>₹ 290/Piece </h3>
+      <br>
+      <span id="divpr9" class="divpr">
+
+        <button id="pr9" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr10">
+      Waist Coat
+      </span>
+      </td>
+      
+      <td id="pricepr10">
+      <strike> ₹ 100/Piece </strike> <br> <h3>₹ 70/Piece </h3>
+      <br>
+      <span id="divpr10" class="divpr">
+
+        <button id="pr10" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr25">
+      Safari Suit
+      </span>
+      </td>
+      
+      <td id="pricepr25">
+      ₹ 130/Piece
+      <br>
+      <span id="divpr25" class="divpr">
+
+        <button id="pr25" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr26">
+      Kurta
+      </span>
+      </td>
+      
+      <td id="pricepr26">
+      ₹ 50/Piece
+      <br>
+      <span id="divpr26" class="divpr">
+
+        <button id="pr26" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr59">
+      Sherwani (Heavy)
+      </span>
+      </td>
+      
+      <td id="pricepr59">
+      <strike> ₹ 260/Piece </strike> <br> <h3>₹ 220/Piece </h3>
+      <br>
+      <span id="divpr59" class="divpr">
+
+        <button id="pr59" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+  </tbody>
+</table>
+
+
+
+
+
+<h1>
+<br>
+Household
+<br>
+
+</h1><table class="table">
+  <thead>
+    <tr>
+      <th scope="col"></th>
+      <th scope="col">NAME</th>
+      <th scope="col">PRICE</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+
+
+
+
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr31">
+      Blanket (Double Bed)
+      </span>
+      </td>
+      
+      <td id="pricepr31">
+      <strike> ₹ 330/Piece </strike> <br> <h3>₹ 270/Piece </h3>
+      <br>
+      <span id="divpr31" class="divpr">
+
+        <button id="pr31" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr33">
+      Blanket (Single Bed)
+      </span>
+      </td>
+      
+      <td id="pricepr33">
+      <strike> ₹ 280/Piece </strike> <br> <h3>₹ 230/Piece </h3>
+      <br>
+      <span id="divpr33" class="divpr">
+
+        <button id="pr33" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr45">
+      Bed Sheet (Double Bed, Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr45">
+      <strike>₹ 160/Piece</strike><br><h3>₹ 120/Piece</h3>
+      <br>
+      <span id="divpr45" class="divpr">
+
+        <button id="pr45" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr46">
+      Bed Sheet (Double Bed, Heavy)
+      </span>
+      </td>
+      
+      <td id="pricepr46">
+      <strike> ₹ 220/Piece </strike> <br> <h3>₹ 160/Piece </h3>
+      <br>
+      <span id="divpr46" class="divpr">
+
+        <button id="pr46" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr47">
+      Bed Sheet (Single Bed, Simple)
+      </span>
+      </td>
+      
+      <td id="pricepr47">
+      ₹ 70/Piece
+      <br>
+      <span id="divpr47" class="divpr">
+
+        <button id="pr47" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr50">
+      Bed Sheet (Single Bed, Heavy)
+      </span>
+      </td>
+      
+      <td id="pricepr50">
+      <strike> ₹ 120/Piece </strike> <br> <h3>₹ 90/Piece </h3>
+      <br>
+      <span id="divpr50" class="divpr">
+
+        <button id="pr50" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr55">
+      Pillow Cover
+      </span>
+      </td>
+      
+      <td id="pricepr55">
+      ₹ 30/Piece
+      <br>
+      <span id="divpr55" class="divpr">
+
+        <button id="pr55" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr56">
+      Quilt (Heavy) / Dalai (Comforter)
+      </span>
+      </td>
+      
+      <td id="pricepr56">
+      <strike> ₹ 320/Piece </strike> <br> <h3>₹ 280/Piece </h3>
+      <br>
+      <span id="divpr56" class="divpr">
+
+        <button id="pr56" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr57">
+      Quilt (Simple) / Dalai
+      </span>
+      </td>
+      
+      <td id="pricepr57">
+      <strike> ₹ 300/Piece </strike> <br> <h3>₹ 250/Piece </h3>
+      <br>
+      <span id="divpr57" class="divpr">
+
+        <button id="pr57" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr70">
+      Curtain/Parda
+      </span>
+      </td>
+      
+      <td id="pricepr70">
+      ₹ 70/Piece
+      <br>
+      <span id="divpr70" class="divpr">
+
+        <button id="pr70" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr71">
+      Curtain/Parda (Heavy)
+      </span>
+      </td>
+      
+      <td id="pricepr71">
+      ₹ 130/Piece
+      <br>
+      <span id="divpr71" class="divpr">
+
+        <button id="pr71" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+    <tr>
+      <td>
+      <img src="/static/img/sideicon.png" width="35" height="25" alt="">
+      </td>
+
+      <td>
+      <span id="namepr72">
+      Towel
+      </span>
+      </td>
+      
+      <td id="pricepr72">
+      ₹ 40/Piece
+      <br>
+      <span id="divpr72" class="divpr">
+
+        <button id="pr72" class="btn btn-warning cart">Add To Cart</button>
+      
+      </span>
+
+      </td>
+      
+      
+
+    </tr>
+
+
+
+
+  </tbody>
+</table>
+
+
+
 
 <br><br><br>
 
 
 </div>
+
+
+
+
 
 {% endblock body %}
 {% block js %}
@@ -216,7 +2760,8 @@ function clearCart() {
     cart = JSON.parse(localStorage.getItem('cart'));
     for (var item in cart) {
         document.getElementById('div' + item).innerHTML = '<button id="' + item + '" class="btn btn-warning cart">Add To Cart</button>'
-    }
+
+      }
     localStorage.clear();
     cart = {};
     updateCart(cart);
@@ -229,9 +2774,10 @@ function updateCart(cart) {
     for (var item in cart) {
         sum = sum + cart[item][0]
         document.getElementById('div' + item).innerHTML = "<button id='minus" + item + "' class='btn btn-warning minus'>-</button> <span id='val" + item + "''>" + cart[item][0] + "</span> <button id='plus" + item + "' class='btn btn-warning plus'> + </button>";
-    }
+
+      }
+
     localStorage.setItem('cart', JSON.stringify(cart));
-    document.getElementById('cart').innerHTML = 'CHECKOUT (' + sum +')';
     updatePopover(cart);
 }
 // If plus or minus button is clicked, change the cart as well as the display value
