@@ -36,10 +36,19 @@ def more(request,id):
 
     if request.method=="POST":
         order_id = request.POST['id']
+        order = Order.objects.filter(order_id=order_id)[0]
         my_code = request.user.last_name
         if my_code != 'db' or my_code != '':
             orders = Order.objects.filter(refer_code=my_code)
-            msg = f"Order with order Id - {order_id} Is Ready To Be Picked Please Reach As Soon As Possible."
+            if my_code=='fine':
+                laundry="Finewash Laundry"
+            elif my_code=='bilal':
+                laundry="Bilal Dry Clean"
+            else:
+                laundry="Undefined"
+
+            
+            msg = f"Order with order Id - {order_id}, Name-{order.name}, Laundry-{laundry} Is Ready To Be Picked Please Reach As Soon As Possible."
             url_link = f"https://api.telegram.org/bot5282886784:AAHTAX7RvbhewVLYI1lWQ5EH46cAdn35NTk/sendMessage?chat_id=-791553727&text={msg}"
             requests.get(url_link)
             orders_param = []
@@ -102,7 +111,7 @@ def more(request,id):
 
 
 def signin(request):
-    laundry_list = ['hamd', 'shine', 'fine']
+    laundry_list = ['hamd', 'bilal', 'fine']
     if request.user.is_authenticated:
         laundry_exist = laundry_list.count(request.user.last_name)
         if laundry_exist < 1:

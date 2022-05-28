@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
-{% block title %}Welcome {{name}}. Your Personal Hanzo Page!{% endblock title %}
+{% block title %}Reset Your Hanzo Account Password.{% endblock title %}
 {% block body %}
 
 
@@ -11,36 +11,86 @@
 <hr style="border:1px solid black">
 </div>
 
-
+{% if otp_true %}
 <div class="login-form">
     <form action="/forget-password" method="post">{% csrf_token %}
-        <h2 class="text-center">Reset Password</h2> 
+        <h2 class="text-center">Login With OTP</h2> 
         <br>
       {% if no_user %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
-          <strong>Wrong Email</strong> The email You Entered Is Either Incorrect Or Doesn't Exist. Please Try Again.
-          {{e}}
+          <strong>Wrong Phone No</strong> The Phone No. You Entered Is Either Incorrect Or Doesn't Exist. Please Try Again.
+          
           <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
       {% endif %}
             
+      {% if otp_error %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Wrong OTP.</strong> Please Check The OTP And Try Again.
+        
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+
         <div class="form-group">
-            <input type="number" class="form-control" placeholder="Phone No." name="phone" required="required">
+            <input type="number" class="form-control" placeholder="Enter OTP" name="otp_input" required="required">
         </div>
-        <br>    
+        <br>
+
+        <input type="hidden" name="status" value="give">
+        <input type="hidden" name="otp_val" value="{{otp}}">
+        <input type="hidden" name="phone_val" value="{{phone}}">
+
+
         <div class="form-group">
             <button type="submit" class="btn btn-warning btn-block">Verify</button>
         </div>
         <br>      
         <div class="clearfix">
-            <a href="/forget-password" class="float-center" style="color:white;">Go Back</a>
+            <a href="/forget-password" class="float-center" style="color:white;"><u>Go Back</u></a>
         </div>        
     </form>
 </div>
 <br><br>
+{% else %}
 
+<div class="login-form">
+  <form action="/forget-password" method="post">{% csrf_token %}
+      <h2 class="text-center">Login With OTP</h2> 
+      <br>
+    {% if no_user %}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Wrong Phone No</strong> The Phone No. You Entered Is Either Incorrect Or Doesn't Exist. Please Try Again.
+        
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {% endif %}
+          
+      <div class="form-group">
+          <input type="number" class="form-control" placeholder="Phone No." name="phone" required="required">
+      </div>
+      <br>    
+      <input type="hidden" name="status" value="take">
+
+      <div class="form-group">
+          <button type="submit" class="btn btn-warning btn-block">Verify</button>
+      </div>
+      <br>      
+      <div class="clearfix">
+          <a href="/forget-password" class="float-center" style="color:white;"><u>Go Back</u></a>
+      </div>        
+  </form>
+</div>
+<br><br>
+
+
+{% endif %}
 
 
 {% endblock body %}

@@ -16,6 +16,7 @@ import random
 import requests
 
 
+
 def send_mail(subject, body, to):
     msg = EmailMessage()
     msg.set_content(body)
@@ -99,11 +100,11 @@ def dc(request):
                 account_sid = "AC956c0481a1259cf06686130dce2679df"
                 auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
                 
-                client = Client(account_sid, auth_token)
-                message = client.messages.create(
-                    to=to_client, 
-                    from_="+17067603908",
-                    body=msg_for_client)
+                # client = Client(account_sid, auth_token)
+                # message = client.messages.create(
+                #     to=to_client, 
+                #     from_="+17067603908",
+                #     body=msg_for_client)
                     
                     
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
@@ -212,11 +213,11 @@ def order_info(request, id):
                 account_sid = "AC956c0481a1259cf06686130dce2679df"
                 auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
                 
-                client = Client(account_sid, auth_token)
-                message = client.messages.create(
-                    to=to_client, 
-                    from_="+17067603908",
-                    body=msg_for_client)
+                # client = Client(account_sid, auth_token)
+                # message = client.messages.create(
+                #     to=to_client, 
+                #     from_="+17067603908",
+                #     body=msg_for_client)
 
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
                 requests.get(url_link)
@@ -305,11 +306,11 @@ def order_auth(request,id):
                 account_sid = "AC956c0481a1259cf06686130dce2679df"
                 auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
                 
-                client = Client(account_sid, auth_token)
-                message = client.messages.create(
-                    to=to_client, 
-                    from_="+17067603908",
-                    body=msg_for_client)
+                # client = Client(account_sid, auth_token)
+                # message = client.messages.create(
+                #     to=to_client, 
+                #     from_="+17067603908",
+                #     body=msg_for_client)
                     
                 url_link = f"https://api.telegram.org/bot5024072839:AAFNSeUF9cZXiB3DPlwoKbiNgNo8-c8xD_c/sendMessage?chat_id=-721344690&text={msg_us}"
                 requests.get(url_link)
@@ -340,8 +341,19 @@ def take_phone(request, id):
         phone_no = request.POST['phone']
         try:
             user_exists = User.objects.get(username=phone_no)
-            return render(request, 'home/login/take_pass.html', {'auth':True, 'phone':phone_no})
+            user = User.objects.get(username=phone_no)
+            user.backend = 'django.contrib.auth.backends.ModelBackend'
+            login(request, user)
+            if id==1:
+                page_redirect="/panel#order1"
+            if id==2:
+                page_redirect="/panel#order2"
+            if id==3:
+                page_redirect="/dc"
+            
+            return redirect(page_redirect)
 
+            # return render(request, 'home/login/take_pass.html', {'auth':True, 'phone':phone_no})
         except User.DoesNotExist:
             service = Services.objects.filter(s_no=id)
             params = {'id':id, 'service':service,'otp_sent':True}
@@ -431,12 +443,57 @@ def panel(request):
         return render(request, 'home/login/panel.html',params)
 
     else:
-        return redirect('/take_pass')
+        return redirect('/place-order-phone/1')
 
+def send_otp(c_no, c_otp):
+
+    account_sid = "AC956c0481a1259cf06686130dce2679df"
+    auth_token  = "507a5a4fdcee85e75caece9c3c489c65"
+
+    client = Client(account_sid, auth_token)
+    message = client.messages.create(
+        to=c_no, 
+        from_="+17067603908",
+        body=c_otp)
 
 
 def change_pass(request):
+    if request.method == "POST":
+        status = request.POST.get('status')
+        if status == "take":
+            phone = request.POST.get('phone','')
+            try:
+                user_exists = User.objects.get(username=phone)
+                otp = random.randint(1000,9999)
+                otp_body = f"Your OTP for Hanzo Account Is {otp}. Please Login."
+                send_otp(f"+91{phone}",otp_body)
+                params = {'phone':phone, 'otp':otp, 'otp_true':True}
+                return render(request, 'home/login/forget.html',params)
+
+            except User.DoesNotExist:
+                params = {'no_user':True}
+                return render(request, 'home/login/forget.html',params)
+
+
+        elif status == "give":
+            phone = request.POST.get('phone_val','')
+            otp_val = request.POST.get('otp_val','')
+            otp_input = request.POST.get('otp_input','')
+            if int(otp_val) == int(otp_input):
+                user = User.objects.get(username=phone)
+                user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request, user)
+                return redirect(panel)         
+            
+            else:
+                params = {'phone':phone, 'otp':otp_val, 'otp_true':True, 'otp_error':True}
+                return render(request, 'home/login/forget.html',params)
+
+
+
+
     return render(request, 'home/login/forget.html')
+
 
 
 def review_sep(request, id):
